@@ -1,0 +1,7 @@
+.mark-read {
+    color: blue;
+}
+.mark-read:hover{
+    text-decoration: underline !important;
+    cursor: pointer;
+}

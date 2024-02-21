@@ -1,0 +1,51 @@
+.container {
+    padding: 10px;
+  }
+  
+  .heading {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .donations-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .donation-card {
+    flex: 0 0 calc(33.33% - 20px);
+    width: 250px; /* Adjust the width as needed */
+    border-radius: 8px;
+    padding: 10px;
+    margin: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+  }
+  
+  .donation-card:hover {
+    background-color: #e0e0e0;
+  }
+  
+  .organization-logo {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 10px;
+  }
+  
+  .organization-name {
+    margin-top: 0;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333333;
+  }
+  
+  .donation-info p {
+    margin: 5px 0;
+    color: #555555;
+  }
+  
+  .donation-info strong {
+    font-weight: bold;
+  }
+  
