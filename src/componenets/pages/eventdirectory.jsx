@@ -26,6 +26,7 @@ const Eventdirectory = () => {
 
   const navigate = useNavigate();
 
+
   function handleDelete(id) {
     update({ id, data: { is_active: false } }).then((res) => {
       if (res?.data?.message) {
