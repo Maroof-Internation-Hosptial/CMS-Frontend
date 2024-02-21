@@ -210,7 +210,8 @@ const Eventdirectory = () => {
                               >
                                 <i className="fas fa-folder"></i>
                               </button>
-                              {user?._id === row.created_by._id &&
+                              {/* {user?._id === row.created_by._id && */} 
+                              {user?._id === row.created_by &&
                                 permissions.includes("update") && (
                                   <button
                                     onClick={() =>
@@ -223,7 +224,8 @@ const Eventdirectory = () => {
                                     <i className="fas fa-pencil-alt"></i>
                                   </button>
                                 )}
-                              {user._id === row.created_by._id &&
+                              {/* {user._id === row.created_by._id && */}
+                               {user._id === row.created_by &&
                                 permissions.includes("delete") && (
                                   <button
                                     className="btn btn-danger btn-sm"
