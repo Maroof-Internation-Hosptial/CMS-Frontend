@@ -50,7 +50,7 @@ const Addevent = () => {
             name: data.name,
             description: data.description,
             status: data.status,
-            location: data.location,
+            priority: data.priority,
             department: data.department,
             files: res,
           }).then((res) => {
@@ -161,25 +161,21 @@ const Addevent = () => {
 
                       <div className="row">
                         <div className="form-group col-md-6">
-                          <label htmlFor="inputLocation">
-                            Complaint Location{" "}
-                            <span style={{ color: "red" }}>*</span>
-                          </label>
+                          <label htmlFor="inputPriority">Priority </label>
                           <select
                             className="form-control custom-select"
-                            {...register("location")}
+                            {...register("priority")}
                           >
                             <option value="" defaultValue="" selected disabled>
-                              Select Location
+                              Select Priority
                             </option>
-                            <option value="Ground-Floor">Ground Floor</option>
-                            <option value="First-Floor">1st Floor</option>
-                            <option value="Second-Floor">2nd Floor</option>
-                            <option value="Third-Floor">3rd Floor</option>
+                            <option value="Low">Low</option>
+                            <option value="Medium">Medium</option>
+                            <option value="High">High</option>
                           </select>
-                          {errors.location && (
+                          {errors.priority && (
                             <p className="validation-error">
-                              {errors.location?.message}
+                              {errors.priority?.message}
                             </p>
                           )}
                         </div>
