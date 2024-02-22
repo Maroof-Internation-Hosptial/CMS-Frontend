@@ -115,7 +115,7 @@ const Eventdirectory = () => {
                       <tr>
                         <th style={{ width: "1%" }}>No.</th>
                         <th style={{ width: "1%" }}>ID</th>
-                        <th style={{ width: "30%" }}>Complainant</th>
+                        <th style={{ width: "30%" }}>Details</th>
                         <th>Progress</th>
                         {/* <th>Created By</th> */}
                         <th style={{ width: "8%" }} className="text-center">
@@ -219,32 +219,31 @@ const Eventdirectory = () => {
                                 <i className="fas fa-eye"></i>
                               </button>
                               {/* {user?._id === row.created_by._id && */}
-                              {user?._id === row.created_by &&
-                                permissions.includes("update") && (
-                                  <button
-                                    onClick={() =>
-                                      navigate("/updateevent", {
-                                        state: { event: row },
-                                      })
-                                    }
-                                    className="btn btn-info btn-sm"
-                                  >
-                                    <i className="fas fa-pencil-alt"></i>
-                                  </button>
-                                )}
+                              {permissions.includes("update") && (
+                                <button
+                                  onClick={() =>
+                                    navigate("/updateevent", {
+                                      state: { event: row },
+                                    })
+                                  }
+                                  className="btn btn-info btn-sm"
+                                >
+                                  <i className="fas fa-pencil-alt"></i>
+                                </button>
+                              )}
                               {/* {user._id === row.created_by._id && */}
-                              {user._id === row.created_by &&
-                                permissions.includes("delete") && (
-                                  <button
-                                    className="btn btn-danger btn-sm"
-                                    onClick={() => {
-                                      setSelectedId(row._id);
-                                      setOpenDeleteDialogue(true);
-                                    }}
-                                  >
-                                    <i className="fas fa-trash"></i>
-                                  </button>
-                                )}
+
+                              {permissions.includes("delete") && (
+                                <button
+                                  className="btn btn-danger btn-sm"
+                                  onClick={() => {
+                                    setSelectedId(row._id);
+                                    setOpenDeleteDialogue(true);
+                                  }}
+                                >
+                                  <i className="fas fa-trash"></i>
+                                </button>
+                              )}
                             </td>
                           </tr>
                         );

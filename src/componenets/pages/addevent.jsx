@@ -197,11 +197,9 @@ const Addevent = () => {
 
   function generateComplaintId() {
     // Generate random number between 100000 and 999999 (6-digit number)
-    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
-    return randomNumber.toString().substring(0, 6); // Ensure only 6 digits are used
+    const randomNumber = Math.floor(Math.random() * 90000) + 10000;
+    return randomNumber.toString().substring(0, 5); // Ensure only 6 digits are used
   }
-  
-
 
   return (
     <div className="wrapper">
@@ -253,8 +251,7 @@ const Addevent = () => {
                     <div className="card-body">
                       <div className="form-group">
                         <label htmlFor="inputName">
-                          Complainant Name{" "}
-                          <span style={{ color: "red" }}>*</span>
+                          Subject <span style={{ color: "red" }}>*</span>
                         </label>
 
                         <input

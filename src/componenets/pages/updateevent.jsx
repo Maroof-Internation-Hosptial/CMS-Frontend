@@ -181,7 +181,7 @@ const Updateevent = () => {
                 </div>
                 <div className="card-body">
                   <div className="form-group">
-                    <label htmlFor="inputName">Complainant Name</label>
+                    <label htmlFor="inputName">Subject</label>
                     <input
                       name="name"
                       type="text"
@@ -219,7 +219,6 @@ const Updateevent = () => {
                         <option value="High">High</option>
                       </select>
                     </div>
-
 
                     <div className="form-group col-md-6">
                       <label htmlFor="inputDepartment">
@@ -259,6 +258,23 @@ const Updateevent = () => {
                         <option value="in-progress">In Progress</option>
                         <option value="canceled">Canceled</option>
                         <option value="resolved">Resolved</option>
+                      </select>
+                    </div>
+
+                    <div className="form-group col-md-4">
+                      <label htmlFor="inputStatus">Assign Too</label>
+                      <select
+                        name="status"
+                        className="form-control custom-select"
+                        value={data?.status}
+                        onChange={onChange}
+                      >
+                        <option value="" selected disabled>
+                          Select one
+                        </option>
+                        <option value="in-progress ">Junaid</option>
+                        <option value="canceled 1">Asghar</option>
+                        <option value="resolved 1">Awais</option>
                       </select>
                     </div>
                   </div>

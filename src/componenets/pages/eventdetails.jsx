@@ -87,7 +87,7 @@ const Eventdetails = () => {
                   <div className="card mb-4">
                     <div className="card-body">
                       <div className="form-outline mb-4">
-                        <label style={{ fontSize: 17 }}>Complainant Name</label>
+                        <label style={{ fontSize: 17 }}>Subject</label>
                         <p
                           style={{
                             textAlign: "start",

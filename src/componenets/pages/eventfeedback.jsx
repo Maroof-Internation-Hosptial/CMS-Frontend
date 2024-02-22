@@ -120,7 +120,7 @@ const EventFeedback = () => {
                     <thead>
                       <tr>
                         <th style={{ width: "1%" }}>No.</th>
-                        <th style={{ width: "25%" }}>Complainant</th>
+                        <th style={{ width: "25%" }}>Details</th>
                         <th>Progress</th>
                         {/* <th>Created By</th> */}
                         <th style={{ width: "8%" }} className="text-center">
