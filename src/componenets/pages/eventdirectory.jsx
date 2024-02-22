@@ -26,7 +26,6 @@ const Eventdirectory = () => {
 
   const navigate = useNavigate();
 
-
   function handleDelete(id) {
     update({ id, data: { is_active: false } }).then((res) => {
       if (res?.data?.message) {
@@ -119,6 +118,9 @@ const Eventdirectory = () => {
                         <th>Progress</th>
                         {/* <th>Created By</th> */}
                         <th style={{ width: "8%" }} className="text-center">
+                          Priority
+                        </th>
+                        <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
                         <th style={{ width: "20%" }}>Actions</th>
@@ -174,6 +176,9 @@ const Eventdirectory = () => {
                                 </>
                               )}
                             </td>
+                            <td style={{ textAlign: "center" }}>
+                              <a>{row.priority}</a>
+                            </td>
                             <td className="Event-state">
                               <span
                                 className={`badge ${
@@ -209,9 +214,9 @@ const Eventdirectory = () => {
                                 className="btn btn-primary btn-sm"
                                 href="/eventdetails"
                               >
-                                <i className="fas fa-folder"></i>
+                                <i className="fas fa-eye"></i>
                               </button>
-                              {/* {user?._id === row.created_by._id && */} 
+                              {/* {user?._id === row.created_by._id && */}
                               {user?._id === row.created_by &&
                                 permissions.includes("update") && (
                                   <button
@@ -226,7 +231,7 @@ const Eventdirectory = () => {
                                   </button>
                                 )}
                               {/* {user._id === row.created_by._id && */}
-                               {user._id === row.created_by &&
+                              {user._id === row.created_by &&
                                 permissions.includes("delete") && (
                                   <button
                                     className="btn btn-danger btn-sm"

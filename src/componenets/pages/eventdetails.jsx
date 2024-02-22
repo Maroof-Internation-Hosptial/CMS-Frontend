@@ -213,10 +213,10 @@ const Eventdetails = () => {
                   <div className="info-box bg-light">
                     <div className="info-box-content">
                       <span className="info-box-text text-center text-muted">
-                        Location{" "}
+                        Priority{" "}
                       </span>
                       <span className="info-box-number text-center text-muted mb-0">
-                        {state?.event?.location}
+                        {state?.event?.priority}
                       </span>
                     </div>
                   </div>
