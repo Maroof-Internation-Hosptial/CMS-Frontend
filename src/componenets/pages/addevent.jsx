@@ -196,9 +196,9 @@ const Addevent = () => {
   }
 
   function generateComplaintId() {
-    // Generate random number between 100000 and 999999 (6-digit number)
+    // Generate random number between 10000 and 99999 (5-digit number)
     const randomNumber = Math.floor(Math.random() * 90000) + 10000;
-    return randomNumber.toString().substring(0, 5); // Ensure only 6 digits are used
+    return randomNumber.toString().substring(0, 5); // Ensure only 5 digits are used
   }
 
   return (
