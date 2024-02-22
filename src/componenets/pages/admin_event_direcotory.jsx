@@ -117,6 +117,9 @@ const Eventdirectory = () => {
                         <th>Progress</th>
                         {/* <th>Created By</th> */}
                         <th style={{ width: "8%" }} className="text-center">
+                          Priority
+                        </th>
+                        <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
                         <th style={{ width: "20%" }}>Actions</th>
@@ -184,6 +187,9 @@ const Eventdirectory = () => {
                               <br />
                               <small>{row.created_by.email}</small>
                             </td> */}
+                            <td style={{ textAlign: "center" }}>
+                              <a>{row.priority}</a>
+                            </td>
                             <td className="Event-state">
                               <span
                                 className={`badge ${
