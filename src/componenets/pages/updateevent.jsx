@@ -256,10 +256,9 @@ const Updateevent = () => {
                         <option value="" selected disabled>
                           Select one
                         </option>
-                        <option value="upcoming">Upcoming</option>
                         <option value="in-progress">In Progress</option>
                         <option value="canceled">Canceled</option>
-                        <option value="success">Resolved</option>
+                        <option value="resolved">Resolved</option>
                       </select>
                     </div>
                   </div>

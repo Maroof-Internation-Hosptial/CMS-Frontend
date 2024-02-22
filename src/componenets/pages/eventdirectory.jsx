@@ -177,7 +177,7 @@ const Eventdirectory = () => {
                             <td className="Event-state">
                               <span
                                 className={`badge ${
-                                  row.status === "success"
+                                  row.status === "resolved"
                                     ? "badge-success"
                                     : row.status === "in-progress"
                                     ? "badge-primary"
