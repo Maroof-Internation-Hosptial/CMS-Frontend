@@ -134,6 +134,35 @@ const Addevent = () => {
     { value: "M014468", label: "Vascular Surgery" },
   ];
 
+  // async function onSubmit(data) {
+  //   const isValid = await validateFiles(files, setError);
+  //   console.log(isValid);
+  //   if (isValid) {
+  //     setProgress(25);
+  //     uploadFiles(files, setProgress)
+  //       .then((res) => {
+  //         addEvent({
+  //           name: data.name,
+  //           description: data.description,
+  //           status: data.status,
+  //           priority: data.priority,
+  //           department: data.department,
+  //           files: res,
+  //         }).then((res) => {
+  //           setProgress(0);
+  //           setFiles([]);
+  //           reset();
+  //           setValue("status", "");
+  //           if (res?.data?.message) {
+  //             toast.success("Complaint Added Successfully");
+  //             navigate("/eventdirectory");
+  //           }
+  //         });
+  //       })
+  //       .catch((err) => console.log(err.message));
+  //   }
+  // }
+
   async function onSubmit(data) {
     const isValid = await validateFiles(files, setError);
     console.log(isValid);
@@ -141,7 +170,10 @@ const Addevent = () => {
       setProgress(25);
       uploadFiles(files, setProgress)
         .then((res) => {
+          // Generate unique complaint ID
+          const complaintId = generateComplaintId();
           addEvent({
+            complaint_id: complaintId, // Assuming the field name is 'id' for the complaint ID in your API
             name: data.name,
             description: data.description,
             status: data.status,
@@ -162,6 +194,14 @@ const Addevent = () => {
         .catch((err) => console.log(err.message));
     }
   }
+
+  function generateComplaintId() {
+    // Generate random number between 100000 and 999999 (6-digit number)
+    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+    return randomNumber.toString().substring(0, 6); // Ensure only 6 digits are used
+  }
+  
+
 
   return (
     <div className="wrapper">
@@ -378,6 +418,5 @@ const Addevent = () => {
     </div>
   );
 };
-
 
 export default Addevent;

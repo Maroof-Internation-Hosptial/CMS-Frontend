@@ -114,6 +114,7 @@ const Eventdirectory = () => {
                     <thead>
                       <tr>
                         <th style={{ width: "1%" }}>No.</th>
+                        <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Complainant</th>
                         <th>Progress</th>
                         {/* <th>Created By</th> */}
@@ -139,6 +140,7 @@ const Eventdirectory = () => {
                         return (
                           <tr key={row._id}>
                             <td>{index + 1}</td>
+                            <td>{row.complaint_id}</td>
                             <td>
                               <a>{row.name}</a>
                               <br />

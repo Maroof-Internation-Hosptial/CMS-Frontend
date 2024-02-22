@@ -130,7 +130,6 @@ export const personalInfoValidation = z.object({
   gender: z.string().min(1, { message: "Gender is required" }),
   userdepartment: z.string(),
 
-
   lastName: z
     .string()
     .min(1, { message: "Last name is required" })
@@ -139,7 +138,6 @@ export const personalInfoValidation = z.object({
     }),
 
   phone: z.string(),
-    
 
   role: z.string().min(1, { message: "Role is required" }),
 });
