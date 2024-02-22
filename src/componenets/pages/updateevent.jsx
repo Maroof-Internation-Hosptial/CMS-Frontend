@@ -189,6 +189,7 @@ const Updateevent = () => {
                       className="form-control"
                       value={data?.name}
                       onChange={onChange}
+                      readOnly={true}
                     />
                   </div>
                   <div className="form-group">
@@ -200,32 +201,25 @@ const Updateevent = () => {
                       rows={4}
                       value={data?.description}
                       onChange={onChange}
+                      readOnly={true} // Set readOnly attribute to true
                     />
                   </div>
+
                   <div className="row">
                     <div className="form-group col-md-3">
                       <label htmlFor="inputDepartment">
                         Complaint Department{" "}
                       </label>
-
-                      <select
+                      <input
                         name="department"
+                        id="inputDepartment"
                         className="form-control custom-select"
+                        type="text"
                         value={data?.department}
-                        onChange={onChange}
-                      >
-                        <option value="" defaultValue="" selected disabled>
-                          Select Department
-                        </option>
-                        {departments
-                          .sort((a, b) => a.label.localeCompare(b.label))
-                          .map((department, index) => (
-                            <option key={index} value={department.label}>
-                              {department.label}
-                            </option>
-                          ))}
-                      </select>
+                        readOnly // Make the input non-editable
+                      />
                     </div>
+
                     <div className="form-group col-md-3">
                       <label htmlFor="inputPriority">Priority</label>
                       <select
