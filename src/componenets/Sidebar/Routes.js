@@ -84,12 +84,12 @@ export const rukanRoutes = [
     subRoutes: [
       {
         path: "/membermanagement",
-        name: "Add Muawin",
+        name: "Add User",
         icon: <i className="far fa-circle nav-icon" />,
       },
       {
         path: "/directory",
-        name: "Muawin's Directory",
+        name: "User Management",
         icon: <i className="far fa-circle nav-icon" />,
       },
     ],
