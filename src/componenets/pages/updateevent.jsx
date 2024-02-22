@@ -203,24 +203,7 @@ const Updateevent = () => {
                     />
                   </div>
                   <div className="row">
-                    <div className="form-group col-md-4">
-                      <label htmlFor="inputPriority">Priority</label>
-                      <select
-                        name="priority"
-                        className="form-control custom-select"
-                        value={data?.priority}
-                        onChange={onChange}
-                      >
-                        <option value="" defaultValue="" selected disabled>
-                          Select Priority
-                        </option>
-                        <option value="Low">Low</option>
-                        <option value="Medium">Medium</option>
-                        <option value="High">High</option>
-                      </select>
-                    </div>
-
-                    <div className="form-group col-md-6">
+                    <div className="form-group col-md-3">
                       <label htmlFor="inputDepartment">
                         Complaint Department{" "}
                       </label>
@@ -243,8 +226,24 @@ const Updateevent = () => {
                           ))}
                       </select>
                     </div>
+                    <div className="form-group col-md-3">
+                      <label htmlFor="inputPriority">Priority</label>
+                      <select
+                        name="priority"
+                        className="form-control custom-select"
+                        value={data?.priority}
+                        onChange={onChange}
+                      >
+                        <option value="" defaultValue="" selected disabled>
+                          Select Priority
+                        </option>
+                        <option value="Low">Low</option>
+                        <option value="Medium">Medium</option>
+                        <option value="High">High</option>
+                      </select>
+                    </div>
 
-                    <div className="form-group col-md-4">
+                    <div className="form-group col-md-3">
                       <label htmlFor="inputStatus">Status</label>
                       <select
                         name="status"
@@ -261,7 +260,7 @@ const Updateevent = () => {
                       </select>
                     </div>
 
-                    <div className="form-group col-md-4">
+                    <div className="form-group col-md-3">
                       <label htmlFor="inputStatus">Assign Too</label>
                       <select
                         name="status"
