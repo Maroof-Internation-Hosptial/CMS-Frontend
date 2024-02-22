@@ -128,7 +128,7 @@ export const personalInfoValidation = z.object({
       message: "Invalid Father Name",
     }),
   gender: z.string().min(1, { message: "Gender is required" }),
-  userdepartment: z.string(),
+  userdepartment: z.string().min(1, { message: "Gender is required" }),
 
   lastName: z
     .string()
