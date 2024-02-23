@@ -150,7 +150,7 @@ const Member_directory = () => {
                   ) : (
                     <thead>
                       <th style={{ textAlign: "center" }}>
-                        {rukanLoading ? "Loading..." : "No Muawins"}
+                        {rukanLoading ? "Loading..." : "No User Found"}
                       </th>
                     </thead>
                   )}

@@ -132,7 +132,7 @@ const EventFeedback = () => {
                   ) : (
                     <thead>
                       <th style={{ textAlign: "center" }}>
-                        {isLoading ? "Loading Events" : "No Events"}
+                        {isLoading ? "Loading Events" : "No Complaint Found"}
                       </th>
                     </thead>
                   )}
