@@ -37,28 +37,28 @@ export const adminRoutes = [
         name: "Manage Complaint",
         icon: <i className="far fa-circle nav-icon" />,
       },
-      {
-        path: "/eventfeedback",
-        name: "Complaint Feedback",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
+      // {
+      //   path: "/eventfeedback",
+      //   name: "Complaint Feedback",
+      //   icon: <i className="far fa-circle nav-icon" />,
+      // },
     ],
   },
-  {
-    path: "/reports",
-    name: "Reports and Analytics",
-    icon: <i class="nav-icon fas fa-edit"></i>,
-  },
-  {
-    path: "/donations",
-    name: "Donations",
-    icon: <i class="nav-icon fas fa-tree"></i>,
-  },
-  {
-    path: "/literature",
-    name: "Literature",
-    icon: <i class="nav-icon fas fa-file"></i>,
-  },
+  // {
+  //   path: "/reports",
+  //   name: "Reports and Analytics",
+  //   icon: <i class="nav-icon fas fa-edit"></i>,
+  // },
+  // {
+  //   path: "/donations",
+  //   name: "Donations",
+  //   icon: <i class="nav-icon fas fa-tree"></i>,
+  // },
+  // {
+  //   path: "/literature",
+  //   name: "Literature",
+  //   icon: <i class="nav-icon fas fa-file"></i>,
+  // },
   {
     path: "/contacts",
     name: "Contacts",
@@ -110,28 +110,28 @@ export const rukanRoutes = [
         name: "Manage Complaint",
         icon: <i className="far fa-circle nav-icon" />,
       },
-      {
-        path: "/eventfeedback",
-        name: "Complaint Feedback",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
+      // {
+      //   path: "/eventfeedback",
+      //   name: "Complaint Feedback",
+      //   icon: <i className="far fa-circle nav-icon" />,
+      // },
     ],
   },
-  {
-    path: "/reports",
-    name: "Reports and Analytics",
-    icon: <i class="nav-icon fas fa-edit"></i>,
-  },
-  {
-    path: "/donations",
-    name: "Donations",
-    icon: <i class="nav-icon fas fa-tree"></i>,
-  },
-  {
-    path: "/literature",
-    name: "Literature",
-    icon: <i class="nav-icon fas fa-file"></i>,
-  },
+  // {
+  //   path: "/reports",
+  //   name: "Reports and Analytics",
+  //   icon: <i class="nav-icon fas fa-edit"></i>,
+  // },
+  // {
+  //   path: "/donations",
+  //   name: "Donations",
+  //   icon: <i class="nav-icon fas fa-tree"></i>,
+  // },
+  // {
+  //   path: "/literature",
+  //   name: "Literature",
+  //   icon: <i class="nav-icon fas fa-file"></i>,
+  // },
 ];
 
 export const muawinRoutes = [
@@ -157,28 +157,28 @@ export const muawinRoutes = [
         name: "Manage Complaint",
         icon: <i className="far fa-circle nav-icon" />,
       },
-      {
-        path: "/eventfeedback",
-        name: "Complaint Feedback",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
+      // {
+      //   path: "/eventfeedback",
+      //   name: "Complaint Feedback",
+      //   icon: <i className="far fa-circle nav-icon" />,
+      // },
     ],
   },
-  {
-    path: "/reports",
-    name: "Reports and Analytics",
-    icon: <i class="nav-icon fas fa-edit"></i>,
-  },
-  {
-    path: "/donations",
-    name: "Donations",
-    icon: <i class="nav-icon fas fa-tree"></i>,
-  },
-  {
-    path: "/literature",
-    name: "Literature",
-    icon: <i class="nav-icon fas fa-file"></i>,
-  },
+  // {
+  //   path: "/reports",
+  //   name: "Reports and Analytics",
+  //   icon: <i class="nav-icon fas fa-edit"></i>,
+  // },
+  // {
+  //   path: "/donations",
+  //   name: "Donations",
+  //   icon: <i class="nav-icon fas fa-tree"></i>,
+  // },
+  // {
+  //   path: "/literature",
+  //   name: "Literature",
+  //   icon: <i class="nav-icon fas fa-file"></i>,
+  // },
 ];
 
 export const donorRoutes = [

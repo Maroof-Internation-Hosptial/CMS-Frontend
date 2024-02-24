@@ -82,7 +82,7 @@ const Header = () => {
                       </h3>
                     </div>
                     <div>
-                      <p className="text-white mb-0 small">Open Donations</p>
+                      <p className="text-white mb-0 small">Open D</p>
                     </div>
                   </div>
                 </div>
@@ -168,7 +168,7 @@ const Header = () => {
                         )}
                       </h3>
                       <p className="text-white mb-0 small">
-                        Total {user?.role === "admin" ? "Users" : "Muawin's"}
+                        Total {user?.role === "admin" ? "Users" : "Users"}
                       </p>
                     </div>
                   </div>
@@ -201,14 +201,14 @@ const Header = () => {
                 {/* /.card */}
               </section>
 
-              <section className="col-lg-5 connectedSortable">
-                {/* Calendar */}
+              {/* Calendar */}
+
+              {/* <section className="col-lg-5 connectedSortable">
                 {user.role !== "User" && <EventsCalendar events={events} />}
-                {user.role === "User" && (
-                  <div style={{ height: "48vh" }}></div>
-                )}
-                {/* /.card */}
-              </section>
+                {user.role === "User" && <div style={{ height: "48vh" }}></div>}
+              </section> */}
+
+
               {/* right col */}
             </div>
             {/* /.row (main row) */}
