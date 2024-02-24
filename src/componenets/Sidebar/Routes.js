@@ -188,38 +188,45 @@ export const donorRoutes = [
     icon: <i className="nav-icon fas fa-tachometer-alt" />,
   },
 
-  {
-    path: "/events",
-    name: "Complaint Management",
-    icon: <i className="nav-icon fas fa-columns" />,
-    exact: true,
-    subRoutes: [
-        {
-          path: "/addevent",
-          name: "Add Complaint ",
-          icon: <i className="far fa-circle nav-icon" />,
-        },
+  // {
+  //   path: "/events",
+  //   name: "Complaint Management",
+  //   icon: <i className="nav-icon fas fa-columns" />,
+  //   exact: true,
+  //   subRoutes: [
+
+
+
+      {
+        path: "/addevent",
+        name: "Add Complaint ",
+        icon: <i className="far fa-comment-dots nav-icon" />,
+      },
+
       // {
       //   path: "/muawin-event-directory",
       //   name: "Manage Complaint",
       //   icon: <i className="far fa-circle nav-icon" />,
       // },
-      {
-        path: "/eventfeedback",
-        name: "Complaint Feedback",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
-    ],
-  },
 
-  {
-    path: "/donations",
-    name: "Donations",
-    icon: <i class="nav-icon fas fa-tree"></i>,
-  },
-  {
-    path: "/literature",
-    name: "Literature",
-    icon: <i class="nav-icon fas fa-file"></i>,
-  },
+      // {
+      //   path: "/eventfeedback",
+      //   name: "Complaint Feedback",
+      //   icon: <i className="far fa-circle nav-icon" />,
+      // },
+
+
+  //   ],
+  // },
+
+  // {
+  //   path: "/donations",
+  //   name: "Donations",
+  //   icon: <i class="nav-icon fas fa-tree"></i>,
+  // },
+  // {
+  //   path: "/literature",
+  //   name: "Literature",
+  //   icon: <i class="nav-icon fas fa-file"></i>,
+  // },
 ];

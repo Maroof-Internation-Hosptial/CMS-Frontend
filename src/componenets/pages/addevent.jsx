@@ -116,14 +116,14 @@ const Addevent = () => {
   return (
     <div className="wrapper">
       <Navbar />
-      {permissions.includes("create") ? (
+      {/* {permissions.includes("create") ? ( */}
         <div style={{ padding: "0 20px" }}>
           {/* Content Header (Page header) */}
           <section className="content-header">
             <div className="container-fluid">
               <div className="row mb-2">
                 <div className="col-sm-6">
-                  <h1>Add Complaint</h1>
+                
                 </div>
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
@@ -318,11 +318,11 @@ const Addevent = () => {
           </form>
           {/* /.content */}
         </div>
-      ) : (
+      {/* ) : (
         <div style={{ minHeight: "83vh" }}>
           <NotAuth />
         </div>
-      )}
+      )} */}
       <Footer />
     </div>
   );
