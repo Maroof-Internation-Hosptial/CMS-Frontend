@@ -57,9 +57,7 @@ const Eventdirectory = () => {
           <section className="content-header">
             <div className="container-fluid">
               <div className="row mb-2">
-                <div className="col-sm-6">
-                 
-                </div>
+                <div className="col-sm-6"></div>
                 <div className="col-sm-6">
                   <ol className="breadcrumb float-sm-right">
                     <li className="breadcrumb-item">
@@ -115,7 +113,8 @@ const Eventdirectory = () => {
                         <th style={{ width: "1%" }}>No.</th>
                         <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Details</th>
-                        <th>Progress</th>
+                        {/* <th>Progress</th> */}
+                        <th>Submitted</th>
                         {/* <th>Created By</th> */}
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
@@ -143,12 +142,12 @@ const Eventdirectory = () => {
                             <td>
                               <a>{row.name}</a>
                               <br />
-                              <small>
+                              {/* <small>
                                 Created{" "}
                                 {moment(row.createdAt).format("DD.MM.YYYY")}
-                              </small>
+                              </small> */}
                             </td>
-                            <td className="Event_progress">
+                            {/* <td className="Event_progress">
                               <div className="progress progress-sm">
                                 <div
                                   className="progress-bar bg-green"
@@ -176,7 +175,12 @@ const Eventdirectory = () => {
                                   </small>
                                 </>
                               )}
+                            </td> */}
+
+                            <td>
+                              {moment(row.createdAt).format("DD.MM.YYYY")}
                             </td>
+
                             {/* <td>
                               <a>
                                 {`${row.created_by.firstName} 
@@ -226,7 +230,7 @@ const Eventdirectory = () => {
                                   })
                                 }
                                 className="btn btn-primary btn-sm"
-                                style={{ marginRight: 5, marginBottom: 5 }}
+                                style={{ marginRight: 5 }}
                                 href="/eventdetails"
                               >
                                 <i className="fas fa-eye"></i>

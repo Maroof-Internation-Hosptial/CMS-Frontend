@@ -37,6 +37,7 @@ const Updateevent = () => {
     priority: state.event.priority,
     department: state.event.department,
     assignedTo: state.event.assignedTo,
+    remarks: state.event.remarks,
   });
   const [files, setFiles] = useState(state.event.files);
 
@@ -67,7 +68,6 @@ const Updateevent = () => {
           <div className="container-fluid">
             <div className="row mb-2">
               <div className="col-sm-6">
-                <h1>Event Edit</h1>
                 {/* <p>{JSON.stringify(assignees, null, 4)}</p> */}
               </div>
               <div className="col-sm-6">
@@ -75,7 +75,7 @@ const Updateevent = () => {
                   <li className="breadcrumb-item">
                     <a href="/dashboard">Home</a>
                   </li>
-                  <li className="breadcrumb-item ">Edit Event</li>
+                  <li className="breadcrumb-item ">Edit Complaint</li>
                 </ol>
               </div>
             </div>
@@ -196,6 +196,19 @@ const Updateevent = () => {
                         ))}
                       </select>
                     </div>
+
+                    {/* <div className="form-group col-12">
+                      <label htmlFor="inputRemarks">Remarks</label>
+                      <textarea
+                        name="remarks"
+                        id="inputRemarks"
+                        className="form-control"
+                        rows={2}
+                        value={data?.remarks}
+                        onChange={onChange}
+                      />
+                    </div> */}
+                    
                   </div>
                 </div>
                 {/* /.card-body */}

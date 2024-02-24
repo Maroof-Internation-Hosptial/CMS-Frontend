@@ -208,7 +208,6 @@ const Header = () => {
                 {user.role === "User" && <div style={{ height: "48vh" }}></div>}
               </section> */}
 
-
               {/* right col */}
             </div>
             {/* /.row (main row) */}
