@@ -44,7 +44,24 @@ const MemberManagement = () => {
         )}
         {/* /.content */}
       </div>
-      <Footer />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          minHeight: "100vh",
+        }}
+      >
+        <div style={{ flexGrow: 1 }}>{/* Your main content here */}</div>
+        <Footer
+          style={{
+            flexShrink: 0,
+            position: "fixed",
+            left: 0,
+            bottom: 0,
+            width: "100%",
+          }}
+        />
+      </div>
     </div>
   );
 };
