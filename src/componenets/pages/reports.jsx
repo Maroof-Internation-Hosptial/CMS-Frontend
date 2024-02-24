@@ -61,7 +61,7 @@ const Report = () => {
         setIsLoading(false);
         const data = response.data;
         if (data.length === 0) {
-          return toast.error("No Complaint Found");
+          return toast.error("No Events Found");
         } else if (reportFormat === "pdf") {
           const report = new jsPDF("portrait", "pt", "a4");
           const image = new Image();

@@ -113,9 +113,7 @@ const Eventdirectory = () => {
                     <thead>
                       <tr>
                         <th style={{ width: "1%" }}>No.</th>
-                        <th style={{ width: "1%" }} className="text-center">
-                          ID
-                        </th>
+                        <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Details</th>
                         <th>Progress</th>
                         {/* <th>Created By</th> */}
@@ -131,7 +129,7 @@ const Eventdirectory = () => {
                   ) : (
                     <thead>
                       <th style={{ textAlign: "center" }}>
-                        {isLoading ? "Loading Events" : "No Complaint Found"}
+                        {isLoading ? "Loading Events" : "No Events"}
                       </th>
                     </thead>
                   )}
@@ -142,7 +140,6 @@ const Eventdirectory = () => {
                           <tr key={row._id}>
                             <td>{index + 1}</td>
                             <td>{row.complaint_id}</td>
-
                             <td>
                               <a>{row.name}</a>
                               <br />

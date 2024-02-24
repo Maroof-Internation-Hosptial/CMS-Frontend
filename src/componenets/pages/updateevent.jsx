@@ -124,6 +124,7 @@ const Updateevent = () => {
 		status: state.event.status,
 		priority: state.event.priority,
 		department: state.event.department,
+		assignedTo: state.event.assignedTo,
 	});
 	const [files, setFiles] = useState(state.event.files);
 
@@ -145,8 +146,6 @@ const Updateevent = () => {
 		);
 	}
 
-	console.log(data);
-	console.log(assignees);
 	return (
 		<div className="wrapper">
 			<Navbar />
@@ -266,11 +265,11 @@ const Updateevent = () => {
 										</div>
 
 										<div className="form-group col-md-3">
-											<label htmlFor="inputStatus">Assign Too</label>
+											<label htmlFor="inputStatus">Assign To</label>
 											<select
-												name="status"
+												name="assignedTo"
 												className="form-control custom-select"
-												value={data?.status}
+												value={data?.assignedTo}
 												onChange={onChange}
 											>
 												<option value="" selected disabled>

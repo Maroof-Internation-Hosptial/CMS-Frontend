@@ -139,6 +139,10 @@ export const api = createApi({
 			query: () => "/events",
 			providesTags: ["Event"],
 		}),
+		AssigneeEvents: build.query({
+			query: () => `/assignee-events`,
+			providesTags: ["Event"],
+		}),
 		SelectiveEvents: build.query({
 			query: (id) => `/selective-events/${id}`,
 			providesTags: ["Event"],
@@ -363,6 +367,7 @@ export const {
 	useAddEventMutation,
 	useUpdateEventMutation,
 	useAllEventsQuery,
+	useAssigneeEventsQuery,
 	useSelectiveEventsQuery,
 	useSelectiveAssigneeQuery,
 	useCalendarEventsQuery,
