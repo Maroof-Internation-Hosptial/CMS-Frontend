@@ -79,7 +79,7 @@ export const rukanRoutes = [
   },
   {
     path: "/users",
-    name: "Muawin Management",
+    name: "User Management",
     icon: <i className="nav-icon far fa-image" />,
     subRoutes: [
       {
