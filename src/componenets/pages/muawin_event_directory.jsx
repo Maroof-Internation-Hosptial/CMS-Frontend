@@ -181,7 +181,7 @@ const Eventdirectory = () => {
 																	style={{ marginRight: 5, marginBottom: 5 }}
 																	href="/eventdetails"
 																>
-																	<i className="fas fa-folder"></i>
+																	<i className="fas fa-eye"></i>
 																</button>
 																{user?.role === "admin" ? (
 																	<button

@@ -209,7 +209,7 @@ const EventFeedback = () => {
                                   className="btn btn-primary btn-sm"
                                   href="/eventdetails"
                                 >
-                                  <i className="fas fa-folder"></i>
+                                  <i className="fas fa-eye"></i>
                                 </button>
                                 <button
                                   onClick={() => {
