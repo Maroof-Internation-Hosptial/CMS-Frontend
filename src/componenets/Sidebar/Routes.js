@@ -77,46 +77,59 @@ export const rukanRoutes = [
     name: "Dashboard",
     icon: <i className="nav-icon fas fa-tachometer-alt" />,
   },
+  // {
+  //   path: "/users",
+  //   name: "User Management",
+  //   icon: <i className="nav-icon far fa-image" />,
+  //   subRoutes: [
+  //     {
+  //       path: "/membermanagement",
+  //       name: "Add User",
+  //       icon: <i className="far fa-circle nav-icon" />,
+  //     },
+  //     {
+  //       path: "/directory",
+  //       name: "User Management",
+  //       icon: <i className="far fa-circle nav-icon" />,
+  //     },
+  //   ],
+  // },
+
+  // {
+  //   path: "/events",
+  //   name: "Complaint Management",
+  //   icon: <i className="nav-icon fas fa-columns" />,
+  //   exact: true,
+  //   subRoutes: [
+  //     {
+  //       path: "/addevent",
+  //       name: "Add Complaint ",
+  //       icon: <i className="far fa-circle nav-icon" />,
+  //     },
+  //     {
+  //       path: "/eventdirectory",
+  //       name: "Manage Complaint",
+  //       icon: <i className="far fa-circle nav-icon" />,
+  //     },
+  //     {
+  //       path: "/eventfeedback",
+  //       name: "Complaint Feedback",
+  //       icon: <i className="far fa-circle nav-icon" />,
+  //     },
+  //   ],
+  // },
+
   {
-    path: "/users",
-    name: "User Management",
-    icon: <i className="nav-icon far fa-image" />,
-    subRoutes: [
-      {
-        path: "/membermanagement",
-        name: "Add User",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
-      {
-        path: "/directory",
-        name: "User Management",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
-    ],
+    path: "/addevent",
+    name: "Add Complaint ",
+    icon: <i className="far fa-circle nav-icon" />,
   },
   {
-    path: "/events",
-    name: "Complaint Management",
-    icon: <i className="nav-icon fas fa-columns" />,
-    exact: true,
-    subRoutes: [
-      {
-        path: "/addevent",
-        name: "Add Complaint ",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
-      {
-        path: "/eventdirectory",
-        name: "Manage Complaint",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
-      // {
-      //   path: "/eventfeedback",
-      //   name: "Complaint Feedback",
-      //   icon: <i className="far fa-circle nav-icon" />,
-      // },
-    ],
+    path: "/eventdirectory",
+    name: "Manage Complaint",
+    icon: <i className="far fa-circle nav-icon" />,
   },
+
   // {
   //   path: "/reports",
   //   name: "Reports and Analytics",
@@ -142,28 +155,36 @@ export const muawinRoutes = [
   },
 
   {
-    path: "/events",
-    name: "Complaint Management",
-    icon: <i className="nav-icon fas fa-columns" />,
-    exact: true,
-    subRoutes: [
-      //   {
-      //     path: "/addevent",
-      //     name: "Add Complaint ",
-      //     icon: <i className="far fa-circle nav-icon" />,
-      //   },
-      {
-        path: "/muawin-event-directory",
-        name: "Manage Complaint",
-        icon: <i className="far fa-circle nav-icon" />,
-      },
-      // {
-      //   path: "/eventfeedback",
-      //   name: "Complaint Feedback",
-      //   icon: <i className="far fa-circle nav-icon" />,
-      // },
-    ],
+    path: "/muawin-event-directory",
+    name: "Manage Complaint",
+    icon: <i className="far fa-circle nav-icon" />,
   },
+
+  {
+    path: "/addevent",
+    name: "Add Complaint ",
+    icon: <i className="far fa-circle nav-icon" />,
+  },
+
+  // {
+  //   path: "/events",
+  //   name: "Complaint Management",
+  //   icon: <i className="nav-icon fas fa-columns" />,
+  //   exact: true,
+  //   subRoutes: [
+  //       {
+  //         path: "/addevent",
+  //         name: "Add Complaint ",
+  //         icon: <i className="far fa-circle nav-icon" />,
+  //       },
+
+  //     {
+  //       path: "/eventfeedback",
+  //       name: "Complaint Feedback",
+  //       icon: <i className="far fa-circle nav-icon" />,
+  //     },
+  //   ],
+  // },
   // {
   //   path: "/reports",
   //   name: "Reports and Analytics",
@@ -195,26 +216,23 @@ export const donorRoutes = [
   //   exact: true,
   //   subRoutes: [
 
+  {
+    path: "/addevent",
+    name: "Add Complaint ",
+    icon: <i className="far fa-comment-dots nav-icon" />,
+  },
 
+  // {
+  //   path: "/muawin-event-directory",
+  //   name: "Manage Complaint",
+  //   icon: <i className="far fa-circle nav-icon" />,
+  // },
 
-      {
-        path: "/addevent",
-        name: "Add Complaint ",
-        icon: <i className="far fa-comment-dots nav-icon" />,
-      },
-
-      // {
-      //   path: "/muawin-event-directory",
-      //   name: "Manage Complaint",
-      //   icon: <i className="far fa-circle nav-icon" />,
-      // },
-
-      // {
-      //   path: "/eventfeedback",
-      //   name: "Complaint Feedback",
-      //   icon: <i className="far fa-circle nav-icon" />,
-      // },
-
+  // {
+  //   path: "/eventfeedback",
+  //   name: "Complaint Feedback",
+  //   icon: <i className="far fa-circle nav-icon" />,
+  // },
 
   //   ],
   // },

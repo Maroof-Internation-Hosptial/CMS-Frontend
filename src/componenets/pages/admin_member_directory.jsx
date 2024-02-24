@@ -16,6 +16,7 @@ import { MenuItem, Select } from "@mui/material";
 import Loader from "../Loader";
 import CustomModal from "../Modal";
 
+
 const Member_directory = () => {
   const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
   const [update] = useUpdateMemberMutation();
@@ -70,6 +71,7 @@ const Member_directory = () => {
       });
   }
 
+
   const handleSearch = (event) => {
     const term = event.target.value;
     setSearch(term);
@@ -83,6 +85,8 @@ const Member_directory = () => {
 
     setFiltered(filtered);
   };
+
+
 
   useEffect(() => {
     setMembers(data);

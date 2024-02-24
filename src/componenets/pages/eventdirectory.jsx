@@ -184,7 +184,7 @@ const Eventdirectory = () => {
                             </td> */}
 
                             <td>
-                              {moment(row.createdAt).format("DD.MM.YYYY")}
+                              {moment(row.createdAt).format("DD.MM.YYYY h:mm:ss A")}
                             </td>
 
                             <td style={{ textAlign: "center" }}>
