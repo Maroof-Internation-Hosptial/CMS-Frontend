@@ -38,6 +38,7 @@ const Updateevent = () => {
     department: state.event.department,
     assignedTo: state.event.assignedTo,
     remarks: state.event.remarks,
+    resolvedAt: state.event.resolvedAt,
   });
   const [files, setFiles] = useState(state.event.files);
 
@@ -53,10 +54,49 @@ const Updateevent = () => {
     update({ id: state.event._id, data: { ...data, files: [...files] } }).then(
       (res) => {
         if (res?.data?.message) {
-          toast.success("Event Updated Successfully!");
+          toast.success("Complaint Updated Successfully!");
         }
       }
     );
+  }
+
+  // function btnresolved() {
+  //   // Check if an assignee is selected
+  //   if (!data.assignedTo) {
+  //     toast.error("Please select an assignee before marking as resolved.");
+  //     return;
+  //   }
+
+  //   // Update the status to 'resolved' before sending to the database
+  //   const updatedData = { ...data, status: "resolved" };
+
+  //   update({ id: state.event._id, data: updatedData }).then((res) => {
+  //     if (res?.data?.message) {
+  //       toast.success("Complaint Successfully Mark as Resolved");
+  //     }
+  //   });
+  // }
+
+  function btnresolved() {
+    // Check if an assignee is selected
+    if (!data.assignedTo) {
+      toast.error("Please select an assignee before marking as resolved.");
+      return;
+    }
+
+    // Update the status to 'resolved' and add timestamp
+    const resolvedTimestamp = new Date().toISOString(); // Get current timestamp
+    const updatedData = {
+      ...data,
+      status: "resolved",
+      resolvedAt: resolvedTimestamp,
+    };
+
+    update({ id: state.event._id, data: updatedData }).then((res) => {
+      if (res?.data?.message) {
+        toast.success("Complaint Successfully Mark as Resolved");
+      }
+    });
   }
 
   return (
@@ -177,7 +217,9 @@ const Updateevent = () => {
                     </div>
 
                     <div className="form-group col-md-3">
-                      <label htmlFor="inputStatus">Assign To</label>
+                      <label htmlFor="inputStatus">
+                        Assign To <span style={{ color: "red" }}>*</span>
+                      </label>
                       <select
                         name="assignedTo"
                         className="form-control custom-select"
@@ -197,7 +239,7 @@ const Updateevent = () => {
                       </select>
                     </div>
 
-                    {/* <div className="form-group col-12">
+                    <div className="form-group col-12">
                       <label htmlFor="inputRemarks">Remarks</label>
                       <textarea
                         name="remarks"
@@ -207,8 +249,7 @@ const Updateevent = () => {
                         value={data?.remarks}
                         onChange={onChange}
                       />
-                    </div> */}
-                    
+                    </div>
                   </div>
                 </div>
                 {/* /.card-body */}
@@ -296,7 +337,57 @@ const Updateevent = () => {
             >
               Cancel
             </Link>
+
+            <button
+              onClick={btnresolved}
+              type="button"
+              className="btn btn-success float-right"
+              value={data?.status}
+              onChange={onChange}
+              style={{ marginRight: "10px", marginLeft: "10px" }}
+            >
+              Mark as Resolved
+            </button>
           </div>
+          {/* 
+          <div className="form-group col-md-3">
+            <label htmlFor="inputStatus">Status</label>
+            <div className="btn-group" role="group" aria-label="Status">
+              <button
+                type="button"
+                className={`btn ${
+                  data && data.status === "in-progress"
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onChange && onChange("in-progress")}
+              >
+                In Progress
+              </button>
+              <button
+                type="button"
+                className={`btn ${
+                  data && data.status === "canceled"
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onChange && onChange("canceled")}
+              >
+                Canceled
+              </button>
+              <button
+                type="button"
+                className={`btn ${
+                  data && data.status === "resolved"
+                    ? "btn-primary"
+                    : "btn-secondary"
+                }`}
+                onClick={() => onChange && onChange("resolved")}
+              >
+                Resolved
+              </button>
+            </div>
+          </div> */}
         </section>
         {/* /.content */}
       </div>

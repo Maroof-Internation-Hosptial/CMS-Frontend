@@ -112,19 +112,19 @@ const Eventdirectory = () => {
                       data.map((row, index) => {
                         if (row.status !== "success") {
                           return (
-							<tr key={row._id}>
-                            <td>{index + 1}</td>
-                            <td>{row.complaint_id}</td>
-                            <td>
-                              <a>{row.name}</a>
-                              {/* <br />
+                            <tr key={row._id}>
+                              <td>{index + 1}</td>
+                              <td>{row.complaint_id}</td>
+                              <td>
+                                <a>{row.name}</a>
+                                {/* <br />
                               <small>
                                 Created{" "}
                                 {moment(row.createdAt).format("DD.MM.YYYY")}
                               </small> */}
-                            </td>
+                              </td>
 
-                            {/* <td className="Event_progress">
+                              {/* <td className="Event_progress">
                               <div className="progress progress-sm">
                                 <div
                                   className="progress-bar bg-green"
@@ -156,57 +156,57 @@ const Eventdirectory = () => {
 
                             </td> */}
 
-                            <td>
-                              {moment(row.createdAt).format("DD.MM.YYYY, h:mm:ss A")}
-                            </td>
+                              <td>
+                                {moment(row.createdAt).format(
+                                  "DD.MM.YYYY, h:mm:ss A"
+                                )}
+                              </td>
 
-                            <td style={{ textAlign: "center" }}>
-                              <a>{row.priority}</a>
-                            </td>
-                            <td className="Event-state">
-                              <span
-                                className={`badge ${
-                                  row.status === "resolved"
-                                    ? "badge-success"
-                                    : row.status === "in-progress"
-                                    ? "badge-primary"
-                                    : row.status === "canceled"
-                                    ? "badge-danger"
-                                    : row.status === "upcoming"
-                                    ? "badge-warning"
-                                    : ""
-                                }`}
-                                style={{ padding: "8px 12px", width: 100 }}
+                              <td style={{ textAlign: "center" }}>
+                                <a>{row.priority}</a>
+                              </td>
+                              <td className="Event-state">
+                                <span
+                                  className={`badge ${
+                                    row.status === "resolved"
+                                      ? "badge-success"
+                                      : row.status === "in-progress"
+                                      ? "badge-primary"
+                                      : row.status === "canceled"
+                                      ? "badge-danger"
+                                      : row.status === "upcoming"
+                                      ? "badge-warning"
+                                      : ""
+                                  }`}
+                                  style={{ padding: "8px 12px", width: 100 }}
+                                >
+                                  {row.status}
+                                </span>
+                              </td>
+                              <td
+                                className="Event-actions text-right"
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                  gap: 5,
+                                }}
                               >
-                                {row.status}
-                              </span>
-                            </td>
-                            <td
-                              className="Event-actions text-right"
-                              style={{
-                                display: "flex",
-                                alignItems: "center",
-                                gap: 5,
-                              }}
-                            >
-                              <button
-                                onClick={() =>
-                                  navigate("/eventdetails", {
-                                    state: { event: row },
-                                  })
-                                }
-                                className="btn btn-primary btn-sm"
-                                href="/eventdetails"
-                              >
-                                <i className="fas fa-eye"></i>
-                              </button>
-                              {/* {user?._id === row.created_by._id && */}
-                              
-                              {/* {user._id === row.created_by._id && */}
+                                <button
+                                  onClick={() =>
+                                    navigate("/eventdetails", {
+                                      state: { event: row },
+                                    })
+                                  }
+                                  className="btn btn-primary btn-sm"
+                                  href="/eventdetails"
+                                >
+                                  <i className="fas fa-eye"></i>
+                                </button>
+                                {/* {user?._id === row.created_by._id && */}
 
-                            
-                            </td>
-                          </tr>
+                                {/* {user._id === row.created_by._id && */}
+                              </td>
+                            </tr>
                           );
                         }
                       })}

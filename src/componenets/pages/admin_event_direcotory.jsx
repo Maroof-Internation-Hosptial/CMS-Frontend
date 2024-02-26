@@ -115,6 +115,7 @@ const Eventdirectory = () => {
                         <th style={{ width: "30%" }}>Details</th>
                         {/* <th>Progress</th> */}
                         <th>Submitted</th>
+                        <th>Resolved</th>
                         {/* <th>Created By</th> */}
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
@@ -178,7 +179,26 @@ const Eventdirectory = () => {
                             </td> */}
 
                             <td>
-                              {moment(row.createdAt).format("DD.MM.YYYY h:mm:ss A")}
+                              {moment(row.createdAt).format("DD.MM.YYYY")}
+                              <br />
+                              <small>
+                                {" "}
+                                {moment(row.createdAt).format("h:mm:ss A")}
+                              </small>
+                            </td>
+
+                            <td>
+                              {row.resolvedAt ? (
+                                <>
+                                  {moment(row.resolvedAt).format("DD.MM.YYYY")}
+                                  <br />
+                                  <small>
+                                    {moment(row.resolvedAt).format("h:mm:ss A")}
+                                  </small>
+                                </>
+                              ) : (
+                                "Not resolved"
+                              )}
                             </td>
 
                             {/* <td>

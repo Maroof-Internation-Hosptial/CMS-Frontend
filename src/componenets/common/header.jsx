@@ -197,7 +197,7 @@ const Header = () => {
             <div className="row">
               <section className="col-lg-7 connectedSortable">
                 {/* TO DO List */}
-                <Todos />
+                {/* <Todos /> */}
                 {/* /.card */}
               </section>
 
