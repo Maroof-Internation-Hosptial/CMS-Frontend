@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 // import { useUpdateEventMutation } from "../../api/api";
 import Loader from "../Loader";
 import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+
 import {
   useSelectiveAssigneeQuery,
   useUpdateEventMutation,
@@ -28,8 +30,8 @@ const Updateevent = () => {
     { value: "M013200", label: "Bio Medical" },
   ];
 
+  const navigate = useNavigate();
   const { state } = useLocation();
-
   const [data, setData] = useState({
     name: state.event.name,
     description: state.event.description,
@@ -84,6 +86,12 @@ const Updateevent = () => {
       return;
     }
 
+    // Check if remarks are empty
+    if (!data.remarks) {
+      toast.error("Please provide comments before marking as resolved.");
+      return;
+    }
+
     // Update the status to 'resolved' and add timestamp
     const resolvedTimestamp = new Date().toISOString(); // Get current timestamp
     const updatedData = {
@@ -95,6 +103,44 @@ const Updateevent = () => {
     update({ id: state.event._id, data: updatedData }).then((res) => {
       if (res?.data?.message) {
         toast.success("Complaint Successfully Mark as Resolved");
+
+        // Redirect to /eventdirectory after 3 seconds
+        setTimeout(() => {
+          navigate("/eventdirectory");
+        }, 1000);
+      }
+    });
+  }
+
+  function btncancel() {
+    // Check if an assignee is selected
+    if (!data.assignedTo) {
+      toast.error("Please select an assignee before marking as resolved.");
+      return;
+    }
+
+    // Check if remarks are empty
+    if (!data.remarks) {
+      toast.error("Please provide comments before marking as resolved.");
+      return;
+    }
+
+    // Update the status to 'resolved' and add timestamp
+    const resolvedTimestamp = new Date().toISOString(); // Get current timestamp
+    const updatedData = {
+      ...data,
+      status: "canceled",
+      resolvedAt: resolvedTimestamp,
+    };
+
+    update({ id: state.event._id, data: updatedData }).then((res) => {
+      if (res?.data?.message) {
+        toast.success("Complaint Successfully Canceled");
+
+        // Redirect to /eventdirectory after 3 seconds
+        setTimeout(() => {
+          navigate("/eventdirectory");
+        }, 1000);
       }
     });
   }
@@ -168,7 +214,7 @@ const Updateevent = () => {
                   </div>
 
                   <div className="row">
-                    <div className="form-group col-md-3">
+                    <div className="form-group col-md-4">
                       <label htmlFor="inputDepartment">
                         Complaint Department{" "}
                       </label>
@@ -182,7 +228,7 @@ const Updateevent = () => {
                       />
                     </div>
 
-                    <div className="form-group col-md-3">
+                    <div className="form-group col-md-4">
                       <label htmlFor="inputPriority">Priority</label>
                       <select
                         name="priority"
@@ -199,7 +245,7 @@ const Updateevent = () => {
                       </select>
                     </div>
 
-                    <div className="form-group col-md-3">
+                    {/* <div className="form-group col-md-3">
                       <label htmlFor="inputStatus">Status</label>
                       <select
                         name="status"
@@ -214,9 +260,9 @@ const Updateevent = () => {
                         <option value="canceled">Canceled</option>
                         <option value="resolved">Resolved</option>
                       </select>
-                    </div>
+                    </div> */}
 
-                    <div className="form-group col-md-3">
+                    <div className="form-group col-md-4">
                       <label htmlFor="inputStatus">
                         Assign To <span style={{ color: "red" }}>*</span>
                       </label>
@@ -240,7 +286,9 @@ const Updateevent = () => {
                     </div>
 
                     <div className="form-group col-12">
-                      <label htmlFor="inputRemarks">Remarks</label>
+                      <label htmlFor="inputRemarks">
+                        Comments<span style={{ color: "red" }}>*</span>
+                      </label>
                       <textarea
                         name="remarks"
                         id="inputRemarks"
@@ -315,6 +363,23 @@ const Updateevent = () => {
             </div> */}
           </div>
           <div className="row" id="cap">
+            {/* Resolved Button */}
+            <button
+              onClick={btnresolved}
+              type="button"
+              className="btn btn-success float-right"
+              value={data?.status}
+              onChange={onChange}
+              style={{
+                width: "120px",
+                marginRight: "10px",
+                marginLeft: "10px",
+              }}
+            >
+              Resolved
+            </button>
+
+            {/* Save Button */}
             {updateResp.isLoading ? (
               <div className="float-right" style={{ marginRight: 15 }}>
                 <Loader size={30} />
@@ -323,32 +388,47 @@ const Updateevent = () => {
               <button
                 onClick={handleUpdate}
                 type="button"
-                className="btn btn-success float-right"
-                style={{ marginRight: "10px", marginLeft: "10px" }}
+                className="btn btn-primary float-right"
+                style={{
+                  width: "120px",
+                  marginRight: "10px",
+                  marginLeft: "10px",
+                }}
               >
-                Save Changes
+                Save
               </button>
             )}
 
+            {/* Cancel Button */}
+            <button
+              onClick={btncancel}
+              type="button"
+              className="btn btn-danger float-right"
+              value={data?.status}
+              onChange={onChange}
+              style={{
+                width: "120px",
+                marginRight: "10px",
+                marginLeft: "10px",
+              }}
+            >
+              Cancel
+            </button>
+
+            {/* Back Button */}
             <Link
               to="/eventdirectory"
               className="btn btn-secondary"
-              style={{ marginRight: "10px", marginLeft: "10px" }}
+              style={{
+                width: "120px",
+                marginRight: "10px",
+                marginLeft: "10px",
+              }}
             >
-              Cancel
+              Back
             </Link>
-
-            <button
-              onClick={btnresolved}
-              type="button"
-              className="btn btn-success float-right"
-              value={data?.status}
-              onChange={onChange}
-              style={{ marginRight: "10px", marginLeft: "10px" }}
-            >
-              Mark as Resolved
-            </button>
           </div>
+
           {/* 
           <div className="form-group col-md-3">
             <label htmlFor="inputStatus">Status</label>
