@@ -403,7 +403,7 @@ const Updateevent = () => {
             <button
               onClick={btncancel}
               type="button"
-              className="btn btn-danger float-right"
+              className="btn btn-secondary float-right"
               value={data?.status}
               onChange={onChange}
               style={{
@@ -418,7 +418,7 @@ const Updateevent = () => {
             {/* Back Button */}
             <Link
               to="/eventdirectory"
-              className="btn btn-secondary"
+              className="btn btn-danger"
               style={{
                 width: "120px",
                 marginRight: "10px",

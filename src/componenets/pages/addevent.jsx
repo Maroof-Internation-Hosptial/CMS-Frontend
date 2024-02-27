@@ -108,10 +108,17 @@ const Addevent = () => {
   }
 
   function generateComplaintId() {
-    // Generate random number between 10000 and 99999 (5-digit number)
-    const randomNumber = Math.floor(Math.random() * 90000) + 10000;
-    return randomNumber.toString().substring(0, 5); // Ensure only 5 digits are used
+    // Generate random number between 100000 and 999999 (6-digit number)
+    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+    return randomNumber.toString().substring(0, 6); // Ensure only 5 digits are used
   }
+
+// let complaintCounter = 0;
+
+// function generateComplaintId() {
+//   complaintCounter++;
+//   return complaintCounter.toString().padStart(6, '0');
+// }
 
   return (
     <div className="wrapper">
@@ -290,15 +297,8 @@ const Addevent = () => {
                 {/* /.card */}
               </div>
             </div>
-            <div className="row" id="cap">
-              <Link
-                to="/"
-                className="btn btn-secondary"
-                style={{ marginRight: "10px", marginLeft: "10px" }}
-              >
-                Cancel
-              </Link>
 
+            <div className="row" id="cap">
               {progress > 0 ? (
                 <div className="float-right" style={{ marginRight: 10 }}>
                   <ProgressLoader progress={progress} />
@@ -311,6 +311,14 @@ const Addevent = () => {
                   style={{ width: "150px" }} // Adjust the width as needed
                 />
               )}
+
+              <Link
+                to="/"
+                className="btn btn-secondary"
+                style={{ marginRight: "10px", marginLeft: "10px" }}
+              >
+                Cancel
+              </Link>
             </div>
           </section>
         </form>

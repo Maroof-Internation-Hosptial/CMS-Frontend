@@ -112,7 +112,7 @@ const Eventdirectory = () => {
                       <tr>
                         <th style={{ width: "1%" }}>No.</th>
                         <th style={{ width: "1%" }}>ID</th>
-                        <th style={{ width: "30%" }}>Details</th>
+                        <th style={{ width: "30%" }}>Subject</th>
                         {/* <th>Progress</th> */}
                         <th>Submitted</th>
                         <th>Resolved</th>

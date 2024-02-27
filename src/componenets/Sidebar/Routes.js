@@ -126,7 +126,12 @@ export const rukanRoutes = [
   },
   {
     path: "/eventdirectory",
-    name: "Manage Complaint",
+    name: "In Queue",
+    icon: <i className="far fa-circle nav-icon" />,
+  },
+  {
+    path: "/eventdirectoryresolved",
+    name: "Resolved",
     icon: <i className="far fa-circle nav-icon" />,
   },
 
@@ -165,7 +170,11 @@ export const muawinRoutes = [
     name: "Add Complaint ",
     icon: <i className="far fa-circle nav-icon" />,
   },
-
+  // {
+  //   path: "/eventdirectoryresolved",
+  //   name: "Resolved",
+  //   icon: <i className="far fa-circle nav-icon" />,
+  // },
   // {
   //   path: "/events",
   //   name: "Complaint Management",
