@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../common/navbar";
 import Footer from "../common/footer";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,7 +6,6 @@ import { useSelectiveEventsQuery, useUpdateEventMutation } from "../../api/api";
 import moment from "moment";
 import { toast } from "sonner";
 import DeleteDialogue from "../DeleteDialogue";
-import { useState } from "react";
 import { useSelector } from "react-redux";
 import { calculatePercentage } from "../../utils";
 
@@ -47,6 +46,21 @@ const Eventdirectoryresolved = () => {
     setEvents(data);
     setFiltered(data);
   }, [data]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // Update events with timer data
+      setEvents(prevEvents =>
+        prevEvents.map(event => ({
+          ...event,
+          timer: moment().diff(moment(event.createdAt), "seconds")
+        }))
+      );
+    }, 1000);
+
+    // Cleanup timer on component unmount
+    return () => clearInterval(timer);
+  }, []);
 
   const pendingEvents = Events
     ? Events.filter((event) => event.status === "in-progress")
@@ -117,8 +131,10 @@ const Eventdirectoryresolved = () => {
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
                         </th>
+                        <th style={{ width: "8%" }} className="text-center">
+                          Timer
+                        </th>
                         <th>Submited</th>
-                       
                         <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
@@ -148,6 +164,7 @@ const Eventdirectoryresolved = () => {
                         <td style={{ textAlign: "center" }}>
                           <a>{row.priority}</a>
                         </td>
+                        <td>{formatTimer(row.timer)}</td>
                         <td>
                           {moment(row.createdAt).format("DD.MM.YYYY")}
                           <br />
@@ -156,8 +173,6 @@ const Eventdirectoryresolved = () => {
                             {moment(row.createdAt).format("h:mm:ss A")}
                           </small>
                         </td>
-                       
-
                         <td className="Event-state">
                           <span
                             className={`badge ${
@@ -236,6 +251,14 @@ const Eventdirectoryresolved = () => {
       </div>
     </>
   );
+};
+
+const formatTimer = (seconds) => {
+  const hours = Math.floor(seconds / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const remainingSeconds = seconds % 60;
+
+  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
 export default Eventdirectoryresolved;
