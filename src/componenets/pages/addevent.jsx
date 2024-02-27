@@ -107,18 +107,24 @@ const Addevent = () => {
     }
   }
 
+  // function generateComplaintId() {
+  //   // Generate random number between 100000 and 999999 (6-digit number)
+  //   const randomNumber = Math.floor(Math.random() * 900000) + 100000;
+  //   return randomNumber.toString().substring(0, 6); // Ensure only 5 digits are used
+  // }
+
+  // let complaintCounter = 0;
+
+  // function generateComplaintId() {
+  //   complaintCounter++;
+  //   return complaintCounter.toString().padStart(6, '0');
+  // }
+
   function generateComplaintId() {
-    // Generate random number between 100000 and 999999 (6-digit number)
-    const randomNumber = Math.floor(Math.random() * 900000) + 100000;
-    return randomNumber.toString().substring(0, 6); // Ensure only 5 digits are used
+    // Generate random number between 900000 and 999999 (6-digit number starting from 900000)
+    const randomNumber = Math.floor(Math.random() * 100000) + 900000;
+    return randomNumber.toString().substring(0, 6); // Ensure only 6 digits are used
   }
-
-// let complaintCounter = 0;
-
-// function generateComplaintId() {
-//   complaintCounter++;
-//   return complaintCounter.toString().padStart(6, '0');
-// }
 
   return (
     <div className="wrapper">
