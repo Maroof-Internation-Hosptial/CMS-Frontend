@@ -131,7 +131,7 @@ export const rukanRoutes = [
   },
   {
     path: "/eventdirectoryresolved",
-    name: "Resolved",
+    name: "Resolved/Canceled",
     icon: <i className="far fa-circle nav-icon" />,
   },
 

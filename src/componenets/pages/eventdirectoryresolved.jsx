@@ -22,7 +22,6 @@ const Eventdirectoryresolved = () => {
   const [search, setSearch] = useState("");
   const [Events, setEvents] = useState([]);
   const [filtered, setFiltered] = useState([]);
-  const [timer, setTimer] = useState(0);
 
   const navigate = useNavigate();
 
@@ -48,22 +47,6 @@ const Eventdirectoryresolved = () => {
     setEvents(data);
     setFiltered(data);
   }, [data]);
-
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setTimer((prevTimer) => prevTimer + 1);
-    }, 1000);
-
-    return () => clearInterval(intervalId);
-  }, []);
-
-  const formatTime = (seconds) => {
-    const hours = Math.floor(seconds / 3600);
-    const minutes = Math.floor((seconds % 3600) / 60);
-    return `${hours.toString().padStart(2, "0")}:${minutes
-      .toString()
-      .padStart(2, "0")}`;
-  };
 
   const resolvedAndCanceledEvents = Events
     ? Events.filter(
@@ -132,14 +115,13 @@ const Eventdirectoryresolved = () => {
                       <tr>
                         <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Subject</th>
-                        <th style={{ width: "30%" }}>Department</th>
-                        <th style={{ width: "30%" }}>Name</th>
+                        <th style={{ width: "30%" }}>Compl. Department</th>
+                        <th style={{ width: "30%" }}>Complainee</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
                         </th>
                         <th>Submited</th>
-                        <th>Resolved</th>
-                        <th>Timer</th>
+                        <th>Resolved/Canceled</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
@@ -190,7 +172,7 @@ const Eventdirectoryresolved = () => {
                             "Not resolved"
                           )}
                         </td>
-                        <td>{formatTime(timer)}</td>
+
                         <td className="Event-state">
                           <span
                             className={`badge ${
