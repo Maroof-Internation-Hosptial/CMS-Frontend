@@ -7,7 +7,6 @@ import moment from "moment";
 import { toast } from "sonner";
 import DeleteDialogue from "../DeleteDialogue";
 import { useSelector } from "react-redux";
-import { calculatePercentage } from "../../utils";
 
 const Eventdirectoryresolved = () => {
   const user = useSelector((state) => state.authReducer.activeUser);
@@ -65,6 +64,28 @@ const Eventdirectoryresolved = () => {
   const pendingEvents = Events
     ? Events.filter((event) => event.status === "in-progress")
     : [];
+
+  const getTimerColor = (priority, timer) => {
+    const timeLimits = {
+      High: 1800, // 30 minutes in seconds
+      Medium: 3600, // 60 minutes in seconds
+      Low: 5400 // 90 minutes in seconds
+    };
+
+    if (timer >= timeLimits[priority]) {
+      return '#ff4d4d'; // or any other color for time over
+    } else {
+      return 'transparent'; // default color
+    }
+  };
+
+  const formatTimer = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
 
   return (
     <>
@@ -164,7 +185,9 @@ const Eventdirectoryresolved = () => {
                         <td style={{ textAlign: "center" }}>
                           <a>{row.priority}</a>
                         </td>
-                        <td>{formatTimer(row.timer)}</td>
+                        <td style={{ backgroundColor: getTimerColor(row.priority, row.timer) }}>
+                          {formatTimer(row.timer)}
+                        </td>
                         <td>
                           {moment(row.createdAt).format("DD.MM.YYYY")}
                           <br />
@@ -251,14 +274,6 @@ const Eventdirectoryresolved = () => {
       </div>
     </>
   );
-};
-
-const formatTimer = (seconds) => {
-  const hours = Math.floor(seconds / 3600);
-  const minutes = Math.floor((seconds % 3600) / 60);
-  const remainingSeconds = seconds % 60;
-
-  return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
 };
 
 export default Eventdirectoryresolved;
