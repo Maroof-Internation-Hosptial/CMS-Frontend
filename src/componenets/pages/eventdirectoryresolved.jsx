@@ -115,14 +115,14 @@ const Eventdirectoryresolved = () => {
                       <tr>
                         <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Subject</th>
-                        <th style={{ width: "20%" }}>Complainee Dept</th>
-                        <th style={{ width: "20%" }}>Complainee</th>
+                        <th style={{ width: "15%" }}>Complainee Dept</th>
+                        <th style={{ width: "15%" }}>Complainee</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
                         </th>
                         <th>Submitted</th>
                         <th>Resolved</th>
-                        <th style={{ width: "8%" }} className="text-center">Duration</th>
+                        <th style={{ width: "12%" }} className="text-left">Duration</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
@@ -172,9 +172,11 @@ const Eventdirectoryresolved = () => {
                           )}
                         </td>
 
-                        <td style={{ width: 80 }}> {moment.duration(
+                        <td style={{ width: '180px' }}> {moment.duration(
                           moment(row.resolvedAt).diff(moment(row.createdAt))
                         ).humanize()}</td>
+
+
                         <td className="Event-state">
                           <span
                             className={`badge ${row.status === "resolved"
