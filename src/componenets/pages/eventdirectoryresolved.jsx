@@ -172,9 +172,21 @@ const Eventdirectoryresolved = () => {
                           )}
                         </td>
 
-                        <td style={{ width: '180px' }}> {moment.duration(
+                        {/* This is OLD Time Duration Format */}
+
+                        {/* <td style={{ width: '180px' }}> {moment.duration(
                           moment(row.resolvedAt).diff(moment(row.createdAt))
-                        ).humanize()}</td>
+                        ).humanize()}</td> */}
+
+                        <td style={{ width: '180px' }}>
+                          {(() => {
+                            const duration = moment.duration(moment(row.resolvedAt).diff(moment(row.createdAt)));
+                            const hours = Math.floor(duration.asHours());
+                            const minutes = duration.minutes();
+                            const seconds = duration.seconds();
+                            return `${hours}h ${minutes}m ${seconds}s`;
+                          })()}
+                        </td>
 
 
                         <td className="Event-state">
