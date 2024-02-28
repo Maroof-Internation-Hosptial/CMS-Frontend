@@ -16,9 +16,9 @@ const MemberDetails = () => {
   console.log(state);
 
   return (
-    <div className="wrapper">
+    <div className="wrapper" style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
       <Navbar />
-      <div style={{ padding: "0 20px" }}>
+      <div style={{ padding: "0 20px", flex: "1" }}>
         {/* Content Header (Page header) */}
         <section className="content-header">
           <div className="container-fluid">
