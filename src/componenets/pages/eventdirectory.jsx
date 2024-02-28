@@ -234,18 +234,18 @@ const Eventdirectoryresolved = () => {
                           >
                             <i className="fas fa-eye"></i>
                           </button>
-                          {permissions.includes("update") && (
-                            <button
-                              onClick={() =>
-                                navigate("/updateevent", {
-                                  state: { event: row },
-                                })
-                              }
-                              className="btn btn-info btn-sm"
-                            >
-                              <i className="fas fa-pencil-alt"></i>
-                            </button>
-                          )}
+
+                          <button
+                            onClick={() =>
+                              navigate("/updateevent", {
+                                state: { event: row },
+                              })
+                            }
+                            className="btn btn-info btn-sm"
+                          >
+                            <i className="fas fa-pencil-alt"></i>
+                          </button>
+
                           {permissions.includes("delete") && (
                             <button
                               className="btn btn-danger btn-sm"

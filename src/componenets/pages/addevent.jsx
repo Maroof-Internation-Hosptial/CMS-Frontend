@@ -99,7 +99,7 @@ const Addevent = () => {
             setValue("status", "");
             if (res?.data?.message) {
               toast.success("Complaint Added Successfully");
-              navigate("/eventdirectory");
+              navigate("/dashboard");
             }
           });
         })
