@@ -152,10 +152,11 @@ const Eventdirectoryresolved = () => {
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
                         </th>
+
+                        <th>Submited</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Timer
                         </th>
-                        <th>Submited</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
@@ -185,9 +186,7 @@ const Eventdirectoryresolved = () => {
                         <td style={{ textAlign: "center" }}>
                           <a>{row.priority}</a>
                         </td>
-                        <td style={{ backgroundColor: getTimerColor(row.priority, row.timer) }}>
-                          {formatTimer(row.timer)}
-                        </td>
+
                         <td>
                           {moment(row.createdAt).format("DD.MM.YYYY")}
                           <br />
@@ -196,19 +195,21 @@ const Eventdirectoryresolved = () => {
                             {moment(row.createdAt).format("h:mm:ss A")}
                           </small>
                         </td>
+                        <td style={{ backgroundColor: getTimerColor(row.priority, row.timer) }}>
+                          {formatTimer(row.timer)}
+                        </td>
                         <td className="Event-state">
                           <span
-                            className={`badge ${
-                              row.status === "resolved"
-                                ? "badge-success"
-                                : row.status === "in-progress"
+                            className={`badge ${row.status === "resolved"
+                              ? "badge-success"
+                              : row.status === "in-progress"
                                 ? "badge-primary"
                                 : row.status === "canceled"
-                                ? "badge-danger"
-                                : row.status === "upcoming"
-                                ? "badge-warning"
-                                : ""
-                            }`}
+                                  ? "badge-danger"
+                                  : row.status === "upcoming"
+                                    ? "badge-warning"
+                                    : ""
+                              }`}
                             style={{ padding: "8px 12px", width: 100 }}
                           >
                             {row.status}
