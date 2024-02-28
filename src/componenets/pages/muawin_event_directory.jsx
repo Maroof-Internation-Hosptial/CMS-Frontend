@@ -1,26 +1,26 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../common/navbar";
-
 import Footer from "../common/footer";
 import { Link, useNavigate } from "react-router-dom";
-import { useAssigneeEventsQuery, useUpdateEventMutation } from "../../api/api";
-// import { useAllEventsQuery, useUpdateEventMutation } from "../../api/api";
+import { useSelectiveEventsQuery, useUpdateEventMutation } from "../../api/api";
 import moment from "moment";
 import { toast } from "sonner";
 import DeleteDialogue from "../DeleteDialogue";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import { useAssigneeEventsQuery } from "../../api/api";
 
-const Eventdirectory = () => {
+const Eventdirectoryresolved = () => {
   const user = useSelector((state) => state.authReducer.activeUser);
+  const permissions = useSelector((state) => state.authReducer.permissions);
 
-  const { data, isLoading } = useAssigneeEventsQuery();
-  // const { data, isLoading } = useAllEventsQuery();
   const [update, updateResp] = useUpdateEventMutation();
 
   const [openDeleteDialogue, setOpenDeleteDialogue] = useState(false);
   const [selectedId, setSelectedId] = useState("");
-
+  const [search, setSearch] = useState("");
+  const [Events, setEvents] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const { data, isLoading } = useAssigneeEventsQuery();
   const navigate = useNavigate();
 
   function handleDelete(id) {
@@ -31,12 +31,67 @@ const Eventdirectory = () => {
     });
   }
 
+  const handleSearch = (event) => {
+    const term = event.target.value;
+    setSearch(term);
+
+    const filtered = Events?.filter((event) =>
+      event.name.toLowerCase().includes(term.toLowerCase())
+    );
+    setFiltered(filtered);
+  };
+
+  useEffect(() => {
+    setEvents(data);
+    setFiltered(data);
+  }, [data]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // Update events with timer data
+      setEvents(prevEvents =>
+        prevEvents.map(event => ({
+          ...event,
+          timer: moment().diff(moment(event.createdAt), "seconds")
+        }))
+      );
+    }, 1000);
+
+    // Cleanup timer on component unmount
+    return () => clearInterval(timer);
+  }, []);
+
+  const pendingEvents = Events
+    ? Events.filter((event) => event.status === "in-progress")
+    : [];
+
+  const getTimerColor = (priority, timer) => {
+    const timeLimits = {
+      High: 1800, // 30 minutes in seconds
+      Medium: 3600, // 60 minutes in seconds
+      Low: 5400 // 90 minutes in seconds
+    };
+
+    if (timer >= timeLimits[priority]) {
+      return '#ff4d4d'; // or any other color for time over
+    } else {
+      return 'transparent'; // default color
+    }
+  };
+
+  const formatTimer = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+  };
+
   return (
     <>
       <div className="wrapper">
         <Navbar />
         <div style={{ padding: "0 20px", minHeight: "83vh" }}>
-          {/* Content Header (Page header) */}
           <section className="content-header">
             <div className="container-fluid">
               <div className="row mb-2">
@@ -51,11 +106,16 @@ const Eventdirectory = () => {
                 </div>
               </div>
             </div>
-            {/* /.container-fluid */}
           </section>
-          {/* Main content */}
+          <div className="mb-2" style={{ width: "30%", marginLeft: "auto" }}>
+            <input
+              className="form-control"
+              placeholder="Search"
+              value={search}
+              onChange={(e) => handleSearch(e)}
+            />
+          </div>
           <section className="content">
-            {/* Default box */}
             <div className="card">
               <div className="card-header">
                 <h3 className="card-title">Complaints</h3>
@@ -82,17 +142,20 @@ const Eventdirectory = () => {
               </div>
               <div className="card-body p-0">
                 <table className="table table-striped Events">
-                  {data && data.length > 0 ? (
+                  {pendingEvents && pendingEvents.length > 0 ? (
                     <thead>
                       <tr>
-                        <th style={{ width: "1%" }}>No.</th>
                         <th style={{ width: "1%" }}>ID</th>
-                        <th style={{ width: "30%" }}>Details</th>
-                        {/* <th>Progress</th> */}
-                        <th>Submited</th>
-                        {/* <th>Created By</th> */}
+                        <th style={{ width: "30%" }}>Subject</th>
+                        <th style={{ width: "30%" }}>Compl. Department</th>
+                        <th style={{ width: "30%" }}>Complainee</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
+                        </th>
+
+                        <th>Submited</th>
+                        <th style={{ width: "8%" }} className="text-center">
+                          Timer
                         </th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
@@ -103,121 +166,105 @@ const Eventdirectory = () => {
                   ) : (
                     <thead>
                       <th style={{ textAlign: "center" }}>
-                        {isLoading ? "Loading Events" : "No Complaint Found"}
+                        {isLoading
+                          ? "Loading Events"
+                          : "No In Queue Complaint Found"}
                       </th>
                     </thead>
                   )}
                   <tbody>
-                    {data &&
-                      data.map((row, index) => {
-                        if (row.status !== "success") {
-                          return (
-                            <tr key={row._id}>
-                              <td>{index + 1}</td>
-                              <td>{row.complaint_id}</td>
-                              <td>
-                                <a>{row.name}</a>
-                                {/* <br />
-                              <small>
-                                Created{" "}
-                                {moment(row.createdAt).format("DD.MM.YYYY")}
-                              </small> */}
-                              </td>
+                    {pendingEvents.map((row, index) => (
+                      <tr key={row._id}>
+                        <td>{row.complaint_id}</td>
+                        <td>
+                          <a>{row.name}</a>
+                        </td>
+                        <td>{user?.userdepartment}</td>
+                        <td>
+                          {user.firstName} {user.lastName}
+                        </td>
+                        <td style={{ textAlign: "center" }}>
+                          <a>{row.priority}</a>
+                        </td>
 
-                              {/* <td className="Event_progress">
-                              <div className="progress progress-sm">
-                                <div
-                                  className="progress-bar bg-green"
-                                  role="progressbar"
-                                  aria-volumenow={57}
-                                  aria-volumemin={0}
-                                  aria-volumemax={100}
-                                  style={{
-                                    width: `${calculatePercentage(
-                                      row.ratings
-                                    )}%`,
-                                  }}
-                                ></div>
-                              </div>
-							  
-                              {row.status !== "success" ? (
-                                <small className="mt-3">No ratings yet</small>
-                              ) : (
-                                <>
-                                  <small className="d-block mt-2">
-                                    {calculatePercentage(row.ratings)}% Success
-                                    Rate
-                                  </small>
-                                  <small className="d-block">
-                                    Based on {row.ratings.length} reviews
-                                  </small>
-                                </>
-                              )}
-
-                            </td> */}
-
-                              <td>
-                                {moment(row.createdAt).format(
-                                  "DD.MM.YYYY, h:mm:ss A"
-                                )}
-                              </td>
-
-                              <td style={{ textAlign: "center" }}>
-                                <a>{row.priority}</a>
-                              </td>
-                              <td className="Event-state">
-                                <span
-                                  className={`badge ${
-                                    row.status === "resolved"
-                                      ? "badge-success"
-                                      : row.status === "in-progress"
-                                      ? "badge-primary"
-                                      : row.status === "canceled"
-                                      ? "badge-danger"
-                                      : row.status === "upcoming"
-                                      ? "badge-warning"
-                                      : ""
-                                  }`}
-                                  style={{ padding: "8px 12px", width: 100 }}
-                                >
-                                  {row.status}
-                                </span>
-                              </td>
-                              <td
-                                className="Event-actions text-right"
-                                style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  gap: 5,
-                                }}
-                              >
-                                <button
-                                  onClick={() =>
-                                    navigate("/eventdetails", {
-                                      state: { event: row },
-                                    })
-                                  }
-                                  className="btn btn-primary btn-sm"
-                                  href="/eventdetails"
-                                >
-                                  <i className="fas fa-eye"></i>
-                                </button>
-                                {/* {user?._id === row.created_by._id && */}
-
-                                {/* {user._id === row.created_by._id && */}
-                              </td>
-                            </tr>
-                          );
-                        }
-                      })}
+                        <td>
+                          {moment(row.createdAt).format("DD.MM.YYYY")}
+                          <br />
+                          <small>
+                            {" "}
+                            {moment(row.createdAt).format("h:mm:ss A")}
+                          </small>
+                        </td>
+                        <td style={{ backgroundColor: getTimerColor(row.priority, row.timer) }}>
+                          {formatTimer(row.timer)}
+                        </td>
+                        <td className="Event-state">
+                          <span
+                            className={`badge ${row.status === "resolved"
+                              ? "badge-success"
+                              : row.status === "in-progress"
+                                ? "badge-primary"
+                                : row.status === "canceled"
+                                  ? "badge-danger"
+                                  : row.status === "upcoming"
+                                    ? "badge-warning"
+                                    : ""
+                              }`}
+                            style={{ padding: "8px 12px", width: 100 }}
+                          >
+                            {row.status}
+                          </span>
+                        </td>
+                        <td
+                          className="Event-actions text-right"
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 5,
+                          }}
+                        >
+                          <button
+                            onClick={() =>
+                              navigate("/eventdetails", {
+                                state: { event: row },
+                              })
+                            }
+                            className="btn btn-primary btn-sm"
+                            href="/eventdetails"
+                          >
+                            <i className="fas fa-eye"></i>
+                          </button>
+                          {permissions.includes("update") && (
+                            <button
+                              onClick={() =>
+                                navigate("/updateevent", {
+                                  state: { event: row },
+                                })
+                              }
+                              className="btn btn-info btn-sm"
+                            >
+                              <i className="fas fa-pencil-alt"></i>
+                            </button>
+                          )}
+                          {permissions.includes("delete") && (
+                            <button
+                              className="btn btn-danger btn-sm"
+                              onClick={() => {
+                                setSelectedId(row._id);
+                                setOpenDeleteDialogue(true);
+                              }}
+                            >
+                              <i className="fas fa-trash"></i>
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
                   </tbody>
                 </table>
               </div>
-              {/* /.card-body */}
             </div>
-            {/* /.card */}
           </section>
-          {/* /.content */}
         </div>
         <DeleteDialogue
           open={openDeleteDialogue}
@@ -230,4 +277,4 @@ const Eventdirectory = () => {
   );
 };
 
-export default Eventdirectory;
+export default Eventdirectoryresolved;

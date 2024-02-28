@@ -160,16 +160,17 @@ export const muawinRoutes = [
   },
 
   {
-    path: "/muawin-event-directory",
-    name: "Manage Complaint",
-    icon: <i className="far fa-circle nav-icon" />,
-  },
-
-  {
     path: "/addevent",
     name: "Add Complaint ",
     icon: <i className="far fa-circle nav-icon" />,
   },
+
+  {
+    path: "/muawin-event-directory",
+    name: "In Queue",
+    icon: <i className="far fa-circle nav-icon" />,
+  },
+
   // {
   //   path: "/eventdirectoryresolved",
   //   name: "Resolved",

@@ -50,8 +50,8 @@ const Eventdirectoryresolved = () => {
 
   const resolvedAndCanceledEvents = Events
     ? Events.filter(
-        (event) => event.status === "resolved" || event.status === "canceled"
-      )
+      (event) => event.status === "resolved" || event.status === "canceled"
+    )
     : [];
 
   return (
@@ -110,18 +110,19 @@ const Eventdirectoryresolved = () => {
               <div className="card-body p-0">
                 <table className="table table-striped Events">
                   {resolvedAndCanceledEvents &&
-                  resolvedAndCanceledEvents.length > 0 ? (
+                    resolvedAndCanceledEvents.length > 0 ? (
                     <thead>
                       <tr>
                         <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Subject</th>
-                        <th style={{ width: "30%" }}>Compl. Department</th>
-                        <th style={{ width: "30%" }}>Complainee</th>
+                        <th style={{ width: "20%" }}>Complainee Dept</th>
+                        <th style={{ width: "20%" }}>Complainee</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
                         </th>
-                        <th>Submited</th>
-                        <th>Resolved/Canceled</th>
+                        <th>Submitted</th>
+                        <th>Resolved</th>
+                        <th style={{ width: "8%" }} className="text-center">Duration</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
@@ -160,7 +161,7 @@ const Eventdirectoryresolved = () => {
                           </small>
                         </td>
                         <td>
-                          {row.resolvedAt ? (
+                          {row.resolvedAt && (
                             <>
                               {moment(row.resolvedAt).format("DD.MM.YYYY")}
                               <br />
@@ -168,25 +169,25 @@ const Eventdirectoryresolved = () => {
                                 {moment(row.resolvedAt).format("h:mm:ss A")}
                               </small>
                             </>
-                          ) : (
-                            "Not resolved"
                           )}
                         </td>
 
+                        <td style={{ width: 80 }}> {moment.duration(
+                          moment(row.resolvedAt).diff(moment(row.createdAt))
+                        ).humanize()}</td>
                         <td className="Event-state">
                           <span
-                            className={`badge ${
-                              row.status === "resolved"
-                                ? "badge-success"
-                                : row.status === "in-progress"
+                            className={`badge ${row.status === "resolved"
+                              ? "badge-success"
+                              : row.status === "in-progress"
                                 ? "badge-primary"
                                 : row.status === "canceled"
-                                ? "badge-danger"
-                                : row.status === "upcoming"
-                                ? "badge-warning"
-                                : ""
-                            }`}
-                            style={{ padding: "8px 12px", width: 100 }}
+                                  ? "badge-danger"
+                                  : row.status === "upcoming"
+                                    ? "badge-warning"
+                                    : ""
+                              }`}
+                            style={{ padding: "8px 5px", width: 80 }}
                           >
                             {row.status}
                           </span>
