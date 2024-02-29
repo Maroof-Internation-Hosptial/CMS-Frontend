@@ -35,13 +35,7 @@ const MemberManagement = () => {
         </section>
 
         {/* Main content */}
-        {permissions.includes("create") ? (
-          <MemberForm />
-        ) : (
-          <div style={{ minHeight: "73vh" }}>
-            <NotAuth />
-          </div>
-        )}
+        <MemberForm />
         {/* /.content */}
       </div>
       <div

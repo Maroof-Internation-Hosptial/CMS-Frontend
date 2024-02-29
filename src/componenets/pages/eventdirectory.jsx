@@ -23,6 +23,11 @@ const Eventdirectoryresolved = () => {
 
   const navigate = useNavigate();
 
+  // Pagination
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+
+
   function handleDelete(id) {
     update({ id, data: { is_active: false } }).then((res) => {
       if (res?.data?.message) {
@@ -87,6 +92,13 @@ const Eventdirectoryresolved = () => {
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
   };
 
+  // Pagination
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = pendingEvents.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
   return (
     <>
       <div className="wrapper">
@@ -147,7 +159,7 @@ const Eventdirectoryresolved = () => {
                       <tr>
                         <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Subject</th>
-                        <th style={{ width: "30%" }}>Compl. Department</th>
+                        <th style={{ width: "30%" }}>Complainee Dept</th>
                         <th style={{ width: "30%" }}>Complainee</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
@@ -173,15 +185,17 @@ const Eventdirectoryresolved = () => {
                     </thead>
                   )}
                   <tbody>
-                    {pendingEvents.map((row, index) => (
+                    {currentItems.map((row, index) => (
                       <tr key={row._id}>
                         <td>{row.complaint_id}</td>
                         <td>
                           <a>{row.name}</a>
                         </td>
-                        <td>{user?.userdepartment}</td>
+                        {/* <td>{user?.userdepartment}</td> */}
+                        Accounts
                         <td>
-                          {user.firstName} {user.lastName}
+                          {/* {user.firstName} {user.lastName} */}
+                          Faizan Ali
                         </td>
                         <td style={{ textAlign: "center" }}>
                           <a>{row.priority}</a>
@@ -262,6 +276,21 @@ const Eventdirectoryresolved = () => {
                     ))}
                   </tbody>
                 </table>
+              </div>
+              <div className="card-footer clearfix">
+                <ul className="pagination pagination-sm m-0 float-right">
+                  {currentPage > 1 && (
+                    <li className="page-item">
+                      <button className="page-link bg-primary text-white" style={{ width: "120px" }} onClick={() => paginate(currentPage - 1)}>Previous Page</button>
+                    </li>
+                  )}
+                  {/* Render "Next" button only if there are enough items for the next page */}
+                  {itemsPerPage < pendingEvents.length && indexOfLastItem < pendingEvents.length && (
+                    <li className="page-item">
+                      <button className="page-link bg-primary text-white" style={{ width: "120px" }} onClick={() => paginate(currentPage + 1)}>Next Page</button>
+                    </li>
+                  )}
+                </ul>
               </div>
             </div>
           </section>
