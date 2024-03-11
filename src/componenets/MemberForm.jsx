@@ -136,7 +136,7 @@ const MemberForm = () => {
         console.log(res);
         if (res?.data?.message) {
           toast.success(res?.data?.message);
-          navigate("/directory");
+          navigate("/admin-directory");
         } else if (res?.error?.data?.error) {
           toast.error(res?.error?.data?.error);
         }
