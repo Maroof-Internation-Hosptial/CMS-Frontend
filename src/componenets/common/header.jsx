@@ -178,7 +178,6 @@ const Header = () => {
 								</div>
 							) : (
 								<div className="col-lg-3 col-6">
-									{/* small box */}
 									<div className="small-box bg-info">
 										<div className="inner">
 											<h3>
@@ -196,7 +195,7 @@ const Header = () => {
 								</div>
 							)}
 						</div>
-						<div className="row">
+						{/* <div className="row">
 							<div className="col-lg-3 col-6">
 								<div className="card">
 									<div className="card-body bg-success d-flex flex-column justify-content-between align-items-center">
@@ -306,7 +305,6 @@ const Header = () => {
 								</div>
 							) : (
 								<div className="col-lg-3 col-6">
-									{/* small box */}
 									<div className="small-box bg-info">
 										<div className="inner">
 											<h3>
@@ -323,7 +321,7 @@ const Header = () => {
 									</div>
 								</div>
 							)}
-						</div>
+						</div> */}
 
 						<div className="row">
 							<section className="col-lg-7 connectedSortable">
