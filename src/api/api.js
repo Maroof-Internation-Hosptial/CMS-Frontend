@@ -198,6 +198,18 @@ export const api = createApi({
 			query: () => "/todos_count",
 			providesTags: ["Todo"],
 		}),
+		getDeptCount: build.query({
+			query: () => "/dept_count",
+			providesTags: ["Todo"],
+		}),
+		getUserCount: build.query({
+			query: () => "/user_comp_count",
+			providesTags: ["Todo"],
+		}),
+		getAssigneeCount: build.query({
+			query: () => "/assignee_comp_count",
+			providesTags: ["Todo"],
+		}),
 		addTodo: build.mutation({
 			query: (data) => {
 				return {
@@ -380,6 +392,9 @@ export const {
 	useUserEventsQuery,
 	useGetAllUsersCountQuery,
 	useGetTodosCountQuery,
+	useGetDeptCountQuery,
+	useGetUserCountQuery,
+	useGetAssigneeCountQuery,
 	useTraceLogMutation,
 	useDeleteUserMutation,
 	useGetUserTreeQuery,

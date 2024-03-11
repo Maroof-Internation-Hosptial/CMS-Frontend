@@ -11,7 +11,7 @@ import {
 	useGetDonationsCountQuery,
 	useGetStatsQuery,
 	useGetTodosCountQuery,
-	useGetDeptCountQuery,
+	useGetUserCountQuery,
 } from "../../api/api";
 import { useSelector } from "react-redux";
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
@@ -28,13 +28,13 @@ export const data = {
 	],
 };
 
-const Header = () => {
+const UserHeader = () => {
 	const user = useSelector((state) => state.authReducer.activeUser);
 
 	const { data: statsData, isLoading: statsLoading } = useGetStatsQuery();
 	const { data: events, isLoading: eventsLoading } = useCalendarEventsQuery();
 	const { data: deptCount, isLoading: deptCountLoading } =
-		useGetDeptCountQuery();
+		useGetUserCountQuery();
 	const { data: userCount, isLoading: userCountLoading } =
 		useGetAllUsersCountQuery();
 	const { data: todoCount, isLoading: todoCountLoading } =
@@ -351,4 +351,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default UserHeader;

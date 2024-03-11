@@ -145,9 +145,9 @@ const Eventdirectoryresolved = () => {
                         <td>
                           <a>{row.name}</a>
                         </td>
-                        <td>{user?.userdepartment}</td>
+                        <td>{row.created_by.userdepartment}</td>
                         <td>
-                          {user.firstName} {user.lastName}
+                          {row.created_by.firstName} {row.created_by.lastName}
                         </td>
                         <td style={{ textAlign: "center" }}>
                           <a>{row.priority}</a>
