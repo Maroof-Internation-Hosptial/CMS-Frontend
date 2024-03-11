@@ -21,12 +21,13 @@ const Eventdirectoryresolved = () => {
 	const [Events, setEvents] = useState([]);
 	const [filtered, setFiltered] = useState([]);
 
+
 	const navigate = useNavigate();
 
 	function handleDelete(id) {
 		update({ id, data: { is_active: false } }).then((res) => {
 			if (res?.data?.message) {
-				toast.success("Event Deleted Successfully!");
+				toast.success("Complaint Deleted Successfully!");
 			}
 		});
 	}
@@ -88,6 +89,39 @@ const Eventdirectoryresolved = () => {
 			.toString()
 			.padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
 	};
+
+
+	// Pagination START
+	const [currentPage, setCurrentPage] = useState(1);
+	const [itemsPerPage] = useState(10);
+	const indexOfLastItem = currentPage * itemsPerPage;
+	const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+	const currentItems = pendingEvents.slice(indexOfFirstItem, indexOfLastItem);
+
+	const paginate = pageNumber => setCurrentPage(pageNumber);
+
+	const pageNumbers = [];
+	for (let i = 1; i <= Math.ceil(pendingEvents.length / itemsPerPage); i++) {
+		pageNumbers.push(i);
+	}
+
+	const renderPageNumbers = pageNumbers.map(number => (
+		<li key={number} className="page-item">
+			<button
+				className="page-link"
+				style={{
+					marginLeft: '5px',
+					backgroundColor: currentPage === number ? '#007bff' : 'transparent',
+					color: currentPage === number ? 'white' : 'black'
+				}}
+				onClick={() => paginate(number)}
+			>
+				{number}
+			</button>
+		</li>
+	));
+
+	// Pagination END
 
 	return (
 		<>
@@ -176,7 +210,7 @@ const Eventdirectoryresolved = () => {
 										</thead>
 									)}
 									<tbody>
-										{pendingEvents.map((row, index) => (
+										{currentItems.map((row, index) => (
 											<tr key={row._id}>
 												<td>{row.complaint_id}</td>
 												<td>
@@ -210,17 +244,16 @@ const Eventdirectoryresolved = () => {
 												</td>
 												<td className="Event-state">
 													<span
-														className={`badge ${
-															row.status === "resolved"
-																? "badge-success"
-																: row.status === "in-progress"
+														className={`badge ${row.status === "resolved"
+															? "badge-success"
+															: row.status === "in-progress"
 																? "badge-primary"
 																: row.status === "canceled"
-																? "badge-danger"
-																: row.status === "upcoming"
-																? "badge-warning"
-																: ""
-														}`}
+																	? "badge-danger"
+																	: row.status === "upcoming"
+																		? "badge-warning"
+																		: ""
+															}`}
 														style={{ padding: "8px 12px", width: 100 }}
 													>
 														{row.status}
@@ -273,6 +306,22 @@ const Eventdirectoryresolved = () => {
 										))}
 									</tbody>
 								</table>
+							</div>
+							<div className="card-footer clearfix">
+								<ul className="pagination pagination-sm m-0 float-right">
+									{currentPage > 1 && (
+										<li className="page-item">
+											<button className="page-link" style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage - 1)}>Previous</button>
+										</li>
+									)}
+									{pageNumbers.length > 1 && renderPageNumbers}
+									{currentPage < Math.ceil(pendingEvents.length / itemsPerPage) && (
+										<li className="page-item">
+											<button className="page-link " style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage + 1)}>Next</button>
+										</li>
+									)}
+
+								</ul>
 							</div>
 						</div>
 					</section>

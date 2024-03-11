@@ -44,15 +44,56 @@ const Eventdirectoryresolved = () => {
   };
 
   useEffect(() => {
-    setEvents(data);
-    setFiltered(data);
+    if (data && data.length > 0) {
+      // Sort the data in descending order based on resolvedAt
+      const sortedData = [...data].sort((a, b) => {
+        return moment(b.resolvedAt).valueOf() - moment(a.resolvedAt).valueOf();
+      });
+      setEvents(sortedData);
+      setFiltered(sortedData);
+    }
   }, [data]);
+  
+
 
   const resolvedAndCanceledEvents = Events
     ? Events.filter(
       (event) => event.status === "resolved" || event.status === "canceled"
     )
     : [];
+
+
+  // Pagination START
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(10);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = resolvedAndCanceledEvents.slice(indexOfFirstItem, indexOfLastItem);
+
+  const paginate = pageNumber => setCurrentPage(pageNumber);
+
+  const pageNumbers = [];
+  for (let i = 1; i <= Math.ceil(resolvedAndCanceledEvents.length / itemsPerPage); i++) {
+    pageNumbers.push(i);
+  }
+
+  const renderPageNumbers = pageNumbers.map(number => (
+    <li key={number} className="page-item">
+      <button
+        className="page-link"
+        style={{
+          marginLeft: '5px',
+          backgroundColor: currentPage === number ? '#007bff' : 'transparent',
+          color: currentPage === number ? 'white' : 'black'
+        }}
+        onClick={() => paginate(number)}
+      >
+        {number}
+      </button>
+    </li>
+  ));
+
+  // Pagination END
 
   return (
     <>
@@ -139,7 +180,7 @@ const Eventdirectoryresolved = () => {
                     </thead>
                   )}
                   <tbody>
-                    {resolvedAndCanceledEvents.map((row, index) => (
+                    {currentItems.map((row, index) => (
                       <tr key={row._id}>
                         <td>{row.complaint_id}</td>
                         <td>
@@ -254,6 +295,22 @@ const Eventdirectoryresolved = () => {
                   </tbody>
                 </table>
               </div>
+              <div className="card-footer clearfix">
+								<ul className="pagination pagination-sm m-0 float-right">
+									{currentPage > 1 && (
+										<li className="page-item">
+											<button className="page-link" style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage - 1)}>Previous</button>
+										</li>
+									)}
+									{pageNumbers.length > 1 && renderPageNumbers}
+									{currentPage < Math.ceil(resolvedAndCanceledEvents.length / itemsPerPage) && (
+										<li className="page-item">
+											<button className="page-link " style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage + 1)}>Next</button>
+										</li>
+									)}
+
+								</ul>
+							</div>
             </div>
           </section>
         </div>
