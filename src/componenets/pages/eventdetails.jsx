@@ -227,7 +227,8 @@ const Eventdetails = () => {
                       </span> */}
                       <span className="info-box-number text-center text-muted mb-0">
                         {state?.event?.department}
-                        <span></span>
+                        <br></br>
+                        <span>({state?.event?.nature})</span>
                       </span>
                     </div>
                   </div>

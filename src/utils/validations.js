@@ -89,6 +89,8 @@ export const eventValidationSchema = z.object({
   priority: z.string(),
   department: z.string().min(1, { message: "Department is required" }),
   description: z.string().min(1, { message: "Description is required" }),
+  nature: z.string().min(1, { message: "Complaint Nature is required" }),
+
 });
 
 export async function validateFiles(files, setError) {

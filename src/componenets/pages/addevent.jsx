@@ -46,6 +46,12 @@ const Addevent = () => {
     { value: "M013200", label: "Bio Medical" },
   ];
 
+  const natures = [
+    { value: "hardware", label: "Hardware" },
+    { value: "software", label: "Software" },
+    { value: "other", label: "Other" },
+  ];
+
   // async function onSubmit(data) {
   //   const isValid = await validateFiles(files, setError);
   //   console.log(isValid);
@@ -87,6 +93,7 @@ const Addevent = () => {
           addEvent({
             complaint_id: complaintId, // Assuming the field name is 'id' for the complaint ID in your API
             name: data.name,
+            nature: data.nature,
             description: data.description,
             status: data.status,
             priority: data.priority,
@@ -172,22 +179,52 @@ const Addevent = () => {
                     </div>
                   </div>
                   <div className="card-body">
-                    <div className="form-group">
-                      <label htmlFor="inputName">
-                        Subject <span style={{ color: "red" }}>*</span>
-                      </label>
+                    <div className="row">
+                      <div className="form-group col-md-6">
+                        <label htmlFor="inputName">
+                          Subject <span style={{ color: "red" }}>*</span>
+                        </label>
 
-                      <input
-                        type="text"
-                        id="inputName"
-                        className="form-control"
-                        {...register("name")}
-                      />
-                      {errors.name && (
-                        <p className="validation-error">
-                          {errors.name?.message}
-                        </p>
-                      )}
+                        <input
+                          type="text"
+                          id="inputName"
+                          className="form-control"
+                          {...register("name")}
+                        />
+                        {errors.name && (
+                          <p className="validation-error">
+                            {errors.name?.message}
+                          </p>
+                        )}
+                      </div>
+
+
+                      <div className="form-group col-md-6">
+                        <label htmlFor="inputNature">
+                          Complaint Nature{" "}
+                          <span style={{ color: "red" }}>*</span>
+                        </label>
+                        <select
+                          className="form-control custom-select"
+                          {...register("nature")}
+                        >
+                          <option value="" defaultValue="" selected disabled>
+                            Select Type
+                          </option>
+                          {natures
+                            .sort((a, b) => a.label.localeCompare(b.label))
+                            .map((nature, index) => (
+                              <option key={index} value={nature.label}>
+                                {nature.label}
+                              </option>
+                            ))}
+                        </select>
+                        {errors.nature && (
+                          <p className="validation-error">
+                            {errors.nature?.message}
+                          </p>
+                        )}
+                      </div>
                     </div>
                     <div className="form-group">
                       <label htmlFor="inputDescription">Description</label>
