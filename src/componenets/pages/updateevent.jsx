@@ -79,6 +79,26 @@ const Updateevent = () => {
 	//     }
 	//   });
 	// }
+	function btnforward() {
+		// Check if an assignee is selected
+		if (!data.assignedTo) {
+			toast.error("Please select an assignee before forward the complaint.");
+			return;
+		}
+
+		update({ id: state.event._id, data: { ...data, files: [...files] } }).then(
+			(res) => {
+				if (res?.data?.message) {
+					toast.success("Complaint Successfully Forwarded");
+					// Redirect to /eventdirectory after 3 seconds
+					setTimeout(() => {
+						navigate("/eventdirectory");
+					}, 1000);
+				}
+			}
+		);
+	}
+
 
 	function btnresolved() {
 		// Check if an assignee is selected
@@ -388,12 +408,12 @@ const Updateevent = () => {
 							value={data?.status}
 							onChange={onChange}
 							style={{
-								width: "120px",
+								width: "150px",
 								marginRight: "10px",
 								marginLeft: "10px",
 							}}
 						>
-							Resolved
+							Mark as Resolved
 						</button>
 
 						{/* Save Button */}
@@ -407,12 +427,32 @@ const Updateevent = () => {
 								type="button"
 								className="btn btn-primary float-right"
 								style={{
-									width: "120px",
+									width: "150px",
 									marginRight: "10px",
 									marginLeft: "10px",
 								}}
 							>
-								Save
+								Save Changes
+							</button>
+						)}
+
+
+						{updateResp.isLoading ? (
+							<div className="float-right" style={{ marginRight: 15 }}>
+								<Loader size={30} />
+							</div>
+						) : (
+							<button
+								onClick={btnforward}
+								type="button"
+								className="btn btn-info float-right"
+								style={{
+									width: "150px",
+									marginRight: "10px",
+									marginLeft: "10px",
+								}}
+							>
+								Forward
 							</button>
 						)}
 
@@ -424,12 +464,12 @@ const Updateevent = () => {
 							value={data?.status}
 							onChange={onChange}
 							style={{
-								width: "120px",
+								width: "150px",
 								marginRight: "10px",
 								marginLeft: "10px",
 							}}
 						>
-							Cancel
+							Mark as	Cancel
 						</button>
 
 						{/* Back Button */}
