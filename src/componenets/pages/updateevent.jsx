@@ -34,6 +34,7 @@ const Updateevent = () => {
 	const { state } = useLocation();
 	const [data, setData] = useState({
 		name: state.event.name,
+		nature: state.event.nature,
 		description: state.event.description,
 		status: state.event.status,
 		priority: state.event.priority,
@@ -188,17 +189,33 @@ const Updateevent = () => {
 									</div>
 								</div>
 								<div className="card-body">
-									<div className="form-group">
-										<label htmlFor="inputName">Subject</label>
-										<input
-											name="name"
-											type="text"
-											id="inputName"
-											className="form-control"
-											value={data?.name}
-											onChange={onChange}
-											readOnly={true}
-										/>
+									<div className="row">
+										<div className="form-group col-md-6">
+											<label htmlFor="inputName">Subject</label>
+											<input
+												name="name"
+												type="text"
+												id="inputName"
+												className="form-control"
+												value={data?.name}
+												onChange={onChange}
+												readOnly={true}
+											/>
+										</div>
+										<div className="form-group col-md-6">
+											<label htmlFor="inputNature">
+												Complaint Nature{" "}
+											</label>
+											<input
+												name="nature"
+												id="inputNature"
+												className="form-control custom-select"
+												type="text"
+												value={data?.nature}
+												readOnly // Make the input non-editable
+											/>
+										</div>
+
 									</div>
 									<div className="form-group">
 										<label htmlFor="inputDescription">Description</label>
