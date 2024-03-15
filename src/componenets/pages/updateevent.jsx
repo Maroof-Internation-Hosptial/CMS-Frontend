@@ -210,7 +210,7 @@ const Updateevent = () => {
 								</div>
 								<div className="card-body">
 									<div className="row">
-										<div className="form-group col-md-6">
+										<div className="form-group col-md-6" style={{ display: "none" }}>
 											<label htmlFor="inputName">Subject</label>
 											<input
 												name="name"
@@ -220,6 +220,19 @@ const Updateevent = () => {
 												value={data?.name}
 												onChange={onChange}
 												readOnly={true}
+											/>
+										</div>
+										<div className="form-group col-md-6">
+											<label htmlFor="inputDepartment">
+												Complaint Department{" "}
+											</label>
+											<input
+												name="department"
+												id="inputDepartment"
+												className="form-control custom-select"
+												type="text"
+												value={data?.department}
+												readOnly // Make the input non-editable
 											/>
 										</div>
 										<div className="form-group col-md-6">
@@ -251,21 +264,9 @@ const Updateevent = () => {
 									</div>
 
 									<div className="row">
-										<div className="form-group col-md-4">
-											<label htmlFor="inputDepartment">
-												Complaint Department{" "}
-											</label>
-											<input
-												name="department"
-												id="inputDepartment"
-												className="form-control custom-select"
-												type="text"
-												value={data?.department}
-												readOnly // Make the input non-editable
-											/>
-										</div>
 
-										<div className="form-group col-md-4">
+
+										<div className="form-group col-md-6">
 											<label htmlFor="inputPriority">Priority</label>
 											<select
 												name="priority"
@@ -299,7 +300,7 @@ const Updateevent = () => {
                       </select>
                     </div> */}
 
-										<div className="form-group col-md-4">
+										<div className="form-group col-md-6">
 											<label htmlFor="inputStatus">
 												Assign To <span style={{ color: "red" }}>*</span>
 											</label>

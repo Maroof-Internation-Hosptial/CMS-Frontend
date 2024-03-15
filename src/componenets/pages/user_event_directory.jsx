@@ -189,7 +189,7 @@ const UserEventdirectory = () => {
 
                         <th>Submited</th>
                         <th style={{ width: "8%" }} className="text-center">
-                          Timer
+                          Time
                         </th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
@@ -229,7 +229,7 @@ const UserEventdirectory = () => {
                             {moment(row.createdAt).format("h:mm:ss A")}
                           </small>
                         </td>
-                        <td
+                        {/* <td
                           style={{
                             backgroundColor: getTimerColor(
                               row.priority,
@@ -238,7 +238,12 @@ const UserEventdirectory = () => {
                           }}
                         >
                           {formatTimer(row.timer)}
+                        </td> */}
+
+                        <td>
+                          {row.timing}
                         </td>
+                        
                         <td className="Event-state">
                           <span
                             className={`badge ${row.status === "resolved"

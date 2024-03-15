@@ -183,7 +183,7 @@ const Eventdirectoryresolved = () => {
 										<thead>
 											<tr>
 												<th style={{ width: "1%" }}>ID</th>
-												<th style={{ width: "30%" }}>Subject</th>
+												<th style={{ width: "30%" }}>Nature</th>
 												<th style={{ width: "30%" }}>Complainee Dept</th>
 												<th style={{ width: "30%" }}>Complainee</th>
 												<th style={{ width: "8%" }} className="text-center">
@@ -192,7 +192,7 @@ const Eventdirectoryresolved = () => {
 
 												<th>Submited</th>
 												<th style={{ width: "8%" }} className="text-center">
-													Timer
+													Time
 												</th>
 												<th style={{ width: "8%" }} className="text-center">
 													Status
@@ -214,7 +214,7 @@ const Eventdirectoryresolved = () => {
 											<tr key={row._id}>
 												<td>{row.complaint_id}</td>
 												<td>
-													<a>{row.name}</a>
+													<a>{row.nature}</a>
 												</td>
 												<td>{row.created_by.userdepartment}</td>
 												<td>
@@ -232,7 +232,7 @@ const Eventdirectoryresolved = () => {
 														{moment(row.createdAt).format("h:mm:ss A")}
 													</small>
 												</td>
-												<td
+												{/* <td
 													style={{
 														backgroundColor: getTimerColor(
 															row.priority,
@@ -241,6 +241,10 @@ const Eventdirectoryresolved = () => {
 													}}
 												>
 													{formatTimer(row.timer)}
+												</td> */}
+
+												<td>
+													{row.timing}
 												</td>
 												<td className="Event-state">
 													<span
