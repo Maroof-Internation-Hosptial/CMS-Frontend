@@ -657,7 +657,7 @@ const Addevent = () => {
 
                     <div className="row">
 
-                      <div className="form-group col-md-4">
+                      <div className="form-group col-md-6">
                         <label htmlFor="inputDeadline">Deadline </label>
                         <select
                           className="form-control custom-select"
@@ -678,7 +678,7 @@ const Addevent = () => {
                       </div>
 
 
-                      <div className="form-group col-md-4">
+                      <div className="form-group col-md-6">
                         <label htmlFor="inputTiming">Specify Time </label>
                         <select
                           className="form-control custom-select"
