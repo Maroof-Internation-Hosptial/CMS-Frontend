@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../common/navbar";
 import Footer from "../common/footer";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,13 +6,10 @@ import { useSelectiveEventsQuery, useUpdateEventMutation } from "../../api/api";
 import moment from "moment";
 import { toast } from "sonner";
 import DeleteDialogue from "../DeleteDialogue";
-import { useState } from "react";
 import { useSelector } from "react-redux";
-import { calculatePercentage } from "../../utils";
 
-const Eventdirectoryresolved = () => {
+const UserEventdirectory = () => {
   const user = useSelector((state) => state.authReducer.activeUser);
-  const permissions = useSelector((state) => state.authReducer.permissions);
 
   const { data, isLoading } = useSelectiveEventsQuery();
   const [update, updateResp] = useUpdateEventMutation();
@@ -25,13 +22,7 @@ const Eventdirectoryresolved = () => {
 
   const navigate = useNavigate();
 
-  function handleDelete(id) {
-    update({ id, data: { is_active: false } }).then((res) => {
-      if (res?.data?.message) {
-        toast.success("Event Deleted Successfully!");
-      }
-    });
-  }
+
 
   const handleSearch = (event) => {
     const term = event.target.value;
@@ -44,36 +35,70 @@ const Eventdirectoryresolved = () => {
   };
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      // Sort the data in descending order based on resolvedAt
-      const sortedData = [...data].sort((a, b) => {
-        return moment(b.resolvedAt).valueOf() - moment(a.resolvedAt).valueOf();
+    if (data) {
+      const filteredEvents = data.filter(event => {
+        return event.created_by.firstName === user.firstName && event.created_by.lastName === user.lastName;
       });
-      setEvents(sortedData);
-      setFiltered(sortedData);
+      setEvents(filteredEvents);
+      setFiltered(filteredEvents);
     }
-  }, [data]);
-  
+  }, [data, user]);
 
 
-  const resolvedAndCanceledEvents = Events
-    ? Events.filter(
-      (event) => event.status === "resolved" || event.status === "canceled"
-    )
+  useEffect(() => {
+    const timer = setInterval(() => {
+      // Update events with timer data
+      setEvents((prevEvents) =>
+        prevEvents.map((event) => ({
+          ...event,
+          timer: moment().diff(moment(event.createdAt), "seconds"),
+        }))
+      );
+    }, 1000);
+
+    // Cleanup timer on component unmount
+    return () => clearInterval(timer);
+  }, []);
+
+  const pendingEvents = Events
+    ? Events.filter((event) => event.status === "in-progress")
     : [];
 
+  const getTimerColor = (priority, timer) => {
+    const timeLimits = {
+      High: 1800, // 30 minutes in seconds
+      Medium: 3600, // 60 minutes in seconds
+      Low: 5400, // 90 minutes in seconds
+    };
+
+    if (timer >= timeLimits[priority]) {
+      return "#ff4d4d"; // or any other color for time over
+    } else {
+      return "transparent"; // default color
+    }
+  };
+
+  const formatTimer = (seconds) => {
+    const hours = Math.floor(seconds / 3600);
+    const minutes = Math.floor((seconds % 3600) / 60);
+    const remainingSeconds = seconds % 60;
+
+    return `${hours.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")}:${remainingSeconds.toString().padStart(2, "0")}`;
+  };
 
   // Pagination START
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10);
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = resolvedAndCanceledEvents.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = pendingEvents.slice(indexOfFirstItem, indexOfLastItem);
 
   const paginate = pageNumber => setCurrentPage(pageNumber);
 
   const pageNumbers = [];
-  for (let i = 1; i <= Math.ceil(resolvedAndCanceledEvents.length / itemsPerPage); i++) {
+  for (let i = 1; i <= Math.ceil(pendingEvents.length / itemsPerPage); i++) {
     pageNumbers.push(i);
   }
 
@@ -123,6 +148,7 @@ const Eventdirectoryresolved = () => {
               onChange={(e) => handleSearch(e)}
             />
           </div>
+          {/* {JSON.stringify(pendingEvents, null, 4)} */}
           <section className="content">
             <div className="card">
               <div className="card-header">
@@ -150,20 +176,21 @@ const Eventdirectoryresolved = () => {
               </div>
               <div className="card-body p-0">
                 <table className="table table-striped Events">
-                  {resolvedAndCanceledEvents &&
-                    resolvedAndCanceledEvents.length > 0 ? (
+                  {pendingEvents && pendingEvents.length > 0 ? (
                     <thead>
                       <tr>
                         <th style={{ width: "1%" }}>ID</th>
                         <th style={{ width: "30%" }}>Nature</th>
-                        <th style={{ width: "15%" }}>Complainee Dept</th>
-                        <th style={{ width: "15%" }}>Complainee</th>
+                        <th style={{ width: "30%" }}>Complainee Dept</th>
+                        <th style={{ width: "30%" }}>Complainee</th>
                         <th style={{ width: "8%" }} className="text-center">
                           Priority
                         </th>
-                        <th>Submitted</th>
-                        <th>Resolved</th>
-                        <th style={{ width: "12%" }} className="text-left">Duration</th>
+
+                        <th>Submited</th>
+                        <th style={{ width: "8%" }} className="text-center">
+                          Timer
+                        </th>
                         <th style={{ width: "8%" }} className="text-center">
                           Status
                         </th>
@@ -175,7 +202,7 @@ const Eventdirectoryresolved = () => {
                       <th style={{ textAlign: "center" }}>
                         {isLoading
                           ? "Loading Events"
-                          : "No Resolved Complaint Found"}
+                          : "No Pending Complaint Found"}
                       </th>
                     </thead>
                   )}
@@ -186,13 +213,14 @@ const Eventdirectoryresolved = () => {
                         <td>
                           <a>{row.nature}</a>
                         </td>
-                        <td>{row.created_by?.userdepartment}</td>
+                        <td>{row.created_by.userdepartment}</td>
                         <td>
-                          {row.created_by?.firstName} {row.created_by?.lastName}
+                          {row.created_by.firstName} {row.created_by.lastName}
                         </td>
                         <td style={{ textAlign: "center" }}>
                           <a>{row.priority}</a>
                         </td>
+
                         <td>
                           {moment(row.createdAt).format("DD.MM.YYYY")}
                           <br />
@@ -201,35 +229,16 @@ const Eventdirectoryresolved = () => {
                             {moment(row.createdAt).format("h:mm:ss A")}
                           </small>
                         </td>
-                        <td>
-                          {row.resolvedAt && (
-                            <>
-                              {moment(row.resolvedAt).format("DD.MM.YYYY")}
-                              <br />
-                              <small>
-                                {moment(row.resolvedAt).format("h:mm:ss A")}
-                              </small>
-                            </>
-                          )}
+                        <td
+                          style={{
+                            backgroundColor: getTimerColor(
+                              row.priority,
+                              row.timer
+                            ),
+                          }}
+                        >
+                          {formatTimer(row.timer)}
                         </td>
-
-                        {/* This is OLD Time Duration Format */}
-
-                        {/* <td style={{ width: '180px' }}> {moment.duration(
-                          moment(row.resolvedAt).diff(moment(row.createdAt))
-                        ).humanize()}</td> */}
-
-                        <td style={{ width: '180px' }}>
-                          {(() => {
-                            const duration = moment.duration(moment(row.resolvedAt).diff(moment(row.createdAt)));
-                            const hours = Math.floor(duration.asHours());
-                            const minutes = duration.minutes();
-                            const seconds = duration.seconds();
-                            return `${hours}h ${minutes}m ${seconds}s`;
-                          })()}
-                        </td>
-
-
                         <td className="Event-state">
                           <span
                             className={`badge ${row.status === "resolved"
@@ -242,7 +251,7 @@ const Eventdirectoryresolved = () => {
                                     ? "badge-warning"
                                     : ""
                               }`}
-                            style={{ padding: "8px 5px", width: 80 }}
+                            style={{ padding: "8px 12px", width: 100 }}
                           >
                             {row.status}
                           </span>
@@ -266,29 +275,19 @@ const Eventdirectoryresolved = () => {
                           >
                             <i className="fas fa-eye"></i>
                           </button>
-                          {permissions.includes("update") && (
-                            <button
-                              onClick={() =>
-                                navigate("/updateevent", {
-                                  state: { event: row },
-                                })
-                              }
-                              className="btn btn-info btn-sm"
-                            >
-                              <i className="fas fa-pencil-alt"></i>
-                            </button>
-                          )}
-                          {permissions.includes("delete") && (
-                            <button
-                              className="btn btn-danger btn-sm"
-                              onClick={() => {
-                                setSelectedId(row._id);
-                                setOpenDeleteDialogue(true);
-                              }}
-                            >
-                              <i className="fas fa-trash"></i>
-                            </button>
-                          )}
+
+                          <button
+                            onClick={() =>
+                              navigate("/updateevent", {
+                                state: { event: row },
+                              })
+                            }
+                            className="btn btn-info btn-sm"
+                          >
+                            <i className="fas fa-pencil-alt"></i>
+                          </button>
+
+
                         </td>
                       </tr>
                     ))}
@@ -296,33 +295,29 @@ const Eventdirectoryresolved = () => {
                 </table>
               </div>
               <div className="card-footer clearfix">
-								<ul className="pagination pagination-sm m-0 float-right">
-									{currentPage > 1 && (
-										<li className="page-item">
-											<button className="page-link" style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage - 1)}>Previous</button>
-										</li>
-									)}
-									{pageNumbers.length > 1 && renderPageNumbers}
-									{currentPage < Math.ceil(resolvedAndCanceledEvents.length / itemsPerPage) && (
-										<li className="page-item">
-											<button className="page-link " style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage + 1)}>Next</button>
-										</li>
-									)}
+                <ul className="pagination pagination-sm m-0 float-right">
+                  {currentPage > 1 && (
+                    <li className="page-item">
+                      <button className="page-link" style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage - 1)}>Previous</button>
+                    </li>
+                  )}
+                  {pageNumbers.length > 1 && renderPageNumbers}
+                  {currentPage < Math.ceil(pendingEvents.length / itemsPerPage) && (
+                    <li className="page-item">
+                      <button className="page-link " style={{ marginLeft: '5px' }} onClick={() => paginate(currentPage + 1)}>Next</button>
+                    </li>
+                  )}
 
-								</ul>
-							</div>
+                </ul>
+              </div>
             </div>
           </section>
         </div>
-        <DeleteDialogue
-          open={openDeleteDialogue}
-          onClose={() => setOpenDeleteDialogue(false)}
-          onConfirm={() => handleDelete(selectedId)}
-        />
+
         <Footer />
       </div>
     </>
   );
 };
 
-export default Eventdirectoryresolved;
+export default UserEventdirectory;

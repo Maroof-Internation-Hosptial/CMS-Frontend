@@ -18,6 +18,7 @@ import Eventdetails from "./componenets/pages/eventdetails";
 import Eventdirectory from "./componenets/pages/eventdirectory";
 import Eventdirectoryresolved from "./componenets/pages/eventdirectoryresolved";
 import AdminEventDirectory from "./componenets/pages/admin_event_direcotory";
+import UserEventdirectory from "./componenets/pages/user_event_directory";
 import MuawinEventDirectory from "./componenets/pages/muawin_event_directory";
 import Compose from "./componenets/pages/compose";
 import Read from "./componenets/pages/read";
@@ -74,7 +75,14 @@ function App() {
               <Route path="/eventfeedback" element={<EventFeedback />} />
               <Route path="/eventdetails" element={<Eventdetails />} />
               <Route path="/eventdirectory" element={<Eventdirectory />} />
-              <Route path="/eventdirectoryresolved" element={<Eventdirectoryresolved />} />
+              <Route
+                path="/eventdirectoryresolved"
+                element={<Eventdirectoryresolved />}
+              />
+              <Route
+                path="/user_event_directory"
+                element={<UserEventdirectory />}
+              />
 
               <Route
                 path="/muawin-event-directory"

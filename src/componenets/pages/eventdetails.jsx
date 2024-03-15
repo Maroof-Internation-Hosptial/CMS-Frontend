@@ -87,7 +87,7 @@ const Eventdetails = () => {
                   <div className="card mb-4">
                     <div className="card-body">
                       <div className="form-outline mb-4">
-                        <label style={{ fontSize: 17 }}>Subject</label>
+                        <label style={{ fontSize: 17 }}>Nature</label>
                         <p
                           style={{
                             textAlign: "start",
@@ -95,7 +95,7 @@ const Eventdetails = () => {
                             marginTop: 2,
                           }}
                         >
-                          {state?.event?.name}
+                          {state?.event?.nature}
                         </p>
                       </div>
                       <div className="form-outline mb-4">

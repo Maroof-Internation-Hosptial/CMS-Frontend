@@ -33,6 +33,11 @@ export const adminRoutes = [
         icon: <i className="far fa-circle nav-icon" />,
       },
       {
+        path: "/user_event_directory",
+        name: "View Complaint ",
+        icon: <i className="far fa-eye nav-icon" />,
+      },
+      {
         path: "/admin-event-directory",
         name: "Manage Complaint",
         icon: <i className="far fa-circle nav-icon" />,
@@ -125,6 +130,11 @@ export const rukanRoutes = [
     icon: <i className="far fa-circle nav-icon" />,
   },
   {
+    path: "/user_event_directory",
+    name: "View Complaint ",
+    icon: <i className="far fa-eye nav-icon" />,
+  },
+  {
     path: "/eventdirectory",
     name: "In Queue",
     icon: <i className="far fa-circle nav-icon" />,
@@ -163,6 +173,11 @@ export const muawinRoutes = [
     path: "/addevent",
     name: "Add Complaint ",
     icon: <i className="far fa-circle nav-icon" />,
+  },
+  {
+    path: "/user_event_directory",
+    name: "View Complaint ",
+    icon: <i className="far fa-eye nav-icon" />,
   },
 
   {
@@ -230,6 +245,11 @@ export const donorRoutes = [
     path: "/addevent",
     name: "Add Complaint ",
     icon: <i className="far fa-comment-dots nav-icon" />,
+  },
+  {
+    path: "/user_event_directory",
+    name: "View Complaint ",
+    icon: <i className="far fa-eye nav-icon" />,
   },
 
   // {

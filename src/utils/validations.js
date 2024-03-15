@@ -84,9 +84,11 @@ function isValidEmail(email) {
 }
 
 export const eventValidationSchema = z.object({
-  name: z.string().min(1, { message: "Name is required" }),
+  name: z.string(),
   status: z.string().min(1, { message: "Status is required" }),
   priority: z.string(),
+  timing: z.string(),
+  deadline: z.string(),
   department: z.string().min(1, { message: "Department is required" }),
   description: z.string().min(1, { message: "Description is required" }),
   nature: z.string().min(1, { message: "Complaint Nature is required" }),

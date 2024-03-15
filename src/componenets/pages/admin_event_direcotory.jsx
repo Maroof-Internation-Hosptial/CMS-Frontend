@@ -112,7 +112,7 @@ const Eventdirectory = () => {
                       <tr>
                         <th style={{ width: "1%" }}>No.</th>
                         <th style={{ width: "1%" }}>ID</th>
-                        <th style={{ width: "30%" }}>Subject</th>
+                        <th style={{ width: "30%" }}>Nature</th>
                         {/* <th>Progress</th> */}
                         <th>Submitted</th>
                         <th>Resolved</th>
@@ -141,7 +141,7 @@ const Eventdirectory = () => {
                             <td>{index + 1}</td>
                             <td>{row.complaint_id}</td>
                             <td>
-                              <a>{row.name}</a>
+                              <a>{row.nature}</a>
                               <br />
                               {/* <small>
                                 Created{" "}
@@ -218,17 +218,16 @@ const Eventdirectory = () => {
                             </td>
                             <td className="Event-state">
                               <span
-                                className={`badge ${
-                                  row.status === "resolved"
-                                    ? "badge-success"
-                                    : row.status === "in-progress"
+                                className={`badge ${row.status === "resolved"
+                                  ? "badge-success"
+                                  : row.status === "in-progress"
                                     ? "badge-primary"
                                     : row.status === "canceled"
-                                    ? "badge-danger"
-                                    : row.status === "upcoming"
-                                    ? "badge-warning"
-                                    : ""
-                                }`}
+                                      ? "badge-danger"
+                                      : row.status === "upcoming"
+                                        ? "badge-warning"
+                                        : ""
+                                  }`}
                                 style={{ padding: "5px 10px" }}
                               >
                                 {row.status}
